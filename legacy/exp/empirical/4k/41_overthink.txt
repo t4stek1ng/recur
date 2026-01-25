@@ -1,0 +1,2603 @@
+[overthinking]
+Okay, so I have this question here about radioactive disintegration measurements, and I need to figure out how long the student should count to establish the rate to an uncertainty of 1 percent. The measurements given are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The options are A. 80 s, B. 160 s, C. 2,000 s, D. 5,000 s. The correct answer is supposedly B. 160 s, but I need to understand why.
+
+First, I should recall some basics about radioactive decay. Radioactive substances decay exponentially, following the formula:
+
+N(t) = N₀ * e^(-λt)
+
+Where:
+- N(t) is the remaining quantity after time t,
+- N₀ is the initial quantity,
+- λ is the decay constant,
+- t is the time.
+
+But in practice, when we're dealing with measurements, especially when the counts are small, it's often easier to use the linearized form of this equation, which is the semi-log plot:
+
+ln(N(t)/N₀) = -λt
+
+This is obtained by taking the natural logarithm of both sides of the decay equation. The problem here is that we're given counts instead of the actual quantity N(t). So, the counts (C(t)) are related to N(t) by the equation:
+
+C(t) = N(t) * k
+
+Where k is a constant depending on the instrumentation. Since we're interested in the rate, we can relate the counts to the decay rate. The key here is that for a long-lived isotope, the count follows a Poisson process, which means that the counts per unit time can be modeled as a Poisson distribution. However, for an exact count, especially with low activity, the Poisson distribution might not be the easiest way to approach this.
+
+Instead, maybe it's better to think in terms of the Law of Large Numbers. If we take many measurements, the count will approach a normal distribution due to the Central Limit Theorem, which states that the sum of a large number of independent, identically distributed random variables will approach a normal distribution.
+
+Wait, but in this case, each measurement is a single count, so each is a single trial. Hmm, so perhaps the counts are themselves Poisson distributed, and the sum over time is the total counts. But I might be complicating things.
+
+Alternatively, maybe I can think about the problem in terms of determining the decay constant λ. If we have multiple measurements over time, we can try to fit a curve to these points and then find the decay constant. However, with only 10 measurements, that's a small dataset, so we might need to extrapolate to find how long it takes to get an uncertainty of 1% in the decay rate.
+
+But wait, the question is about establishing the rate to an uncertainty of 1 percent. That means we need to determine the time at which the uncertainty in the rate is less than 1%. Since the rate is λ, which is related to the decay constant, perhaps we can model this as a problem of estimating λ with a certain confidence.
+
+Given that, maybe the problem is about determining the sample size needed to estimate λ with a certain precision. In other words, how many measurements do we need to make so that our estimate of λ has an uncertainty of 1%. The options given are 80, 160, 2000, 5000 seconds.
+
+Wait, but the student is making measurements of the disintegration, so each measurement is a count. How are these counts used to estimate the decay rate?
+
+I think we can relate the counts to the decay rate using the formula for radioactive decay. If I denote the number of disintegrations as C(t), then the decay follows:
+
+C(t) = C₀ * e^(-λt)
+
+But since the student is taking measurements at different times t, they can fit this equation to find λ. The problem is that with only 10 measurements, the fit might not be very precise, especially if there's a lot of variability.
+
+Wait, but the question is about establishing the rate to an uncertainty of 1 percent. So, how long should the student count to have an uncertainty of 1% in the decay rate.
+
+This seems similar to determining the required sample size to estimate a parameter with a certain precision. In statistics, the number of samples needed to estimate a parameter with a certain confidence level can be found using various methods, like the rule of thumb for sample size (n = (Z^2 * σ^2)/E^2), where Z is the z-score for the desired confidence level, σ is the standard deviation, and E is the margin of error.
+
+In this case, we're trying to estimate λ, the decay constant. But what is the standard error in λ? To find that, we can note that the counts C(t) are Poisson distributed, but when dealing with a large number of samples, the Central Limit Theorem applies, and the estimate of λ will have a normal distribution with mean λ and standard deviation σ = sqrt(λ/n).
+
+Wait, is that correct? For Poisson distributed counts, the variance is equal to the mean, so if we have n counts, each with mean λ, then the sum of n counts will have a mean of nλ and a variance of nλ. But we are dealing with the time points, so each measurement is a count at a specific time. Maybe it's more about the rate, which is λ.
+
+Wait, maybe I need to think in terms of the rate. The rate λ is related to the counts as follows: the number of decays per unit time is λ, so over a time period t, the expected number of decays is λt. If the student is making measurements at specific times, say t1, t2, ..., t10, and counting the number of decays in each interval, then the sum of the counts over each interval would be related to λ.
+
+But in the question, the student is making measurements each second, so each measurement is a single second count. So, each count is a single second measurement, which is a single Poisson trial.
+
+Wait, if that's the case, then the count per second is Poisson distributed with mean λ. So, each measurement is a Poisson variable with mean λ. Therefore, if we have n measurements, the sum would be a Gamma distribution with shape n and rate λ.
+
+But since each measurement is a single count, maybe we can model the sum of these counts as an approximation to a normal distribution due to the Central Limit Theorem.
+
+However, the problem is that the student is making 10 measurements, but the counts are not necessarily sums over intervals but rather counts per second. So each count is a single Poisson trial.
+
+Wait, if each measurement is a single second, then each count is a single Poisson count. So, the 10 measurements are 10 independent Poisson trials, each with mean λ. So, the total number of counts over 10 seconds is the sum of 10 independent Poisson variables, each with mean λ, so the total count would be Poisson with mean 10λ. So, if you know the total count, you can estimate 10λ by dividing by the expected count, but that's only if you have a known total count.
+
+Wait, but in this question, the student is making 10 one-second measurements, each second a count. So, each count is a single Poisson variable, so the 10 counts are 10 independent Poisson variables, each with mean λ.
+
+So, the sum of these counts is a Poisson variable with mean 10λ, but as n increases, the sum can be approximated by a normal distribution with mean 10λ and variance 10λ.
+
+Therefore, if the student has n counts, each observation is a count c_i, which is Poisson(λ). The total count is C = c1 + c2 + ... + cn, which is Poisson(nλ), and for large n, approximately Normal(nλ, nλ).
+
+So, the problem is to estimate λ with a certain precision. The question is, how long should the student count (i.e., how many measurements n) so that the uncertainty in λ is 1%.
+
+But wait, the uncertainty is 1% in the rate. So, if the rate is λ, we need |λ_est - λ| / λ ≤ 1%.
+
+So, we need to estimate λ with an uncertainty of 1%. That is, the confidence interval for λ should have a margin of error of 1% of λ.
+
+Given that, we can model the estimation of λ as a binomial problem, but since each count is Poisson, the variance is involved.
+
+Alternatively, since the count per second is Poisson, the mean λ is estimated by the total count divided by the number of seconds. So, if n is the number of seconds, then the estimator for λ is C/n, where C is the total count.
+
+The variance of λ estimator is Var(C/n) = Var(C)/n² = (nλ)/n² = λ/n.
+
+So, the standard error (SE) of λ is sqrt(λ/n).
+
+Wait, but λ is what we're trying to estimate. So, we can express the SE in terms of the variance of the counts.
+
+But since we don't know λ, we can express the relative standard error:
+
+SE(λ) / λ = sqrt(Var(C)/C) / n = sqrt( (nλ)/C ) / n = sqrt(λ / C) / sqrt(n).
+
+But since C = sum_{i=1}^n c_i, and each c_i ~ Poisson(λ), the total count C ~ Poisson(nλ). So, Var(C) = nλ.
+
+Therefore, SE(λ) = sqrt(Var(λ estimator)) = sqrt(λ / n).
+
+But to get the relative standard error, we have:
+
+Relative SE = SE(λ) / λ = sqrt(λ / n) / λ = sqrt(1 / (nλ)).
+
+Hmm, this is getting a bit tangled. Maybe a better approach is to use the formula for the confidence interval for a Poisson parameter.
+
+For a Poisson distribution, the confidence interval for the mean μ can be constructed using the relationship between the χ-squared distribution and the Poisson distribution.
+
+The formula for the confidence interval is:
+
+P(a ≤ μ / (1 + (μ / k)) < b) = confidence level,
+
+where a and b are quantiles of the χ-squared distribution. However, this is for the mean μ.
+
+But in our case, we have counts c_i ~ Poisson(λ), so the mean μ is λ.
+
+Alternatively, the variance of λ estimator is Var(λ) = λ / n, which is the variance when you have n counts. So, the standard error is sqrt(λ / n).
+
+But to get the relative standard error, it's sqrt(λ / n) / λ = sqrt(1 / (nλ)).
+
+But this still doesn't directly help because we don't know λ.
+
+Wait, perhaps instead, we can consider that the counts are Poisson(λ), so the sum over n counts is Poisson(nλ). The variance of the sum is nλ, so the standard deviation is sqrt(nλ).
+
+Therefore, if we know the total count C, then the standard error of λ is sqrt(C / n), because λ = C / n, so Var(λ) = Var(C/n) = Var(C)/n² = (nλ)/n² = λ/n.
+
+Therefore, SE(λ) = sqrt(λ / n) = sqrt(C / n²) = sqrt(C) / n.
+
+But the relative standard error is SE(λ) / λ = sqrt(1 / (nλ)).
+
+Wait, perhaps it's better to use the formula for the confidence interval for λ based on the sum of counts.
+
+For a Poisson distribution, the confidence interval for the mean μ can be approximated using the normal distribution when n is large. So, the mean μ (which is λ in our case) can be estimated with a confidence interval.
+
+But in our case, we have n counts, each Poisson(λ), so the sum S = sum_{i=1}^n c_i ~ Poisson(nλ). The estimate for λ is S / n.
+
+The variance of S is nλ, so the standard error of S/n is sqrt(S / n²) = sqrt(S) / n.
+
+Therefore, for a confidence interval, we can use the normal approximation:
+
+P( (S/n - λ) / (sqrt(S)/n) ) ≤ z ) = confidence level,
+
+Which simplifies to:
+
+P( S/n - z * sqrt(S)/n ≤ λ ≤ S/n + z * sqrt(S)/n ) = confidence level.
+
+But since S = nλ, we can write:
+
+P( λ - z * sqrt(λ) ≤ λ ≤ λ + z * sqrt(λ) ) = confidence level.
+
+Wait, that seems a bit confusing because S = nλ. Let me write that again.
+
+Given S ~ Poisson(nλ), so S = nλ + sqrt(nλ) * ε, where ε is an error term. Therefore, λ = S / n, and the standard error is sqrt(S)/n.
+
+So, the confidence interval for λ is:
+
+λ ± z * sqrt(S)/n
+
+But since S = nλ, so sqrt(S) = sqrt(nλ), so substituting back:
+
+λ ± z * sqrt(nλ)/n = λ ± z * sqrt(λ/n)
+
+Therefore, the confidence interval is:
+
+λ ± z * sqrt(λ/n)
+
+But we can write this as:
+
+λ ± z * sqrt(λ/n)
+
+Which can be rearranged as:
+
+λ ± z * sqrt(λ/n)
+
+But we need to relate this to the relative uncertainty of 1%. So, the relative uncertainty is:
+
+( z * sqrt(λ/n) ) / λ = z * sqrt(1 / (nλ))
+
+We want this to be less than or equal to 1%, so:
+
+z * sqrt(1 / (nλ)) ≤ 0.01
+
+But again, we don't know λ, so maybe we can express it in terms of the total count C.
+
+Wait, since C = sum c_i ~ Poisson(nλ), and λ = C / n, so substitute back:
+
+Relative SE = z * sqrt(1 / (n * (C / n))) = z * sqrt(1 / C) = z / sqrt(C)
+
+Wait, that seems different. Let me check:
+
+Starting from relative SE = z * sqrt(1 / (nλ))
+
+But λ = C / n, so 1 / (nλ) = 1 / (n*(C/n)) = 1 / C
+
+Therefore, relative SE = z * sqrt(1 / C) = z / sqrt(C)
+
+So, relative SE = z / sqrt(C)
+
+We want this relative SE ≤ 0.01
+
+Therefore,
+
+z / sqrt(C) ≤ 0.01
+
+=> sqrt(C) ≥ z / 0.01
+
+=> C ≥ (z / 0.01)^2
+
+But C is the total count, which is the sum of the 10 measurements. The given measurements are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+So, let's calculate C:
+
+3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5
+
+Calculating step by step:
+
+3 + 0 = 3
+
+3 + 2 = 5
+
+5 + 1 = 6
+
+6 + 2 = 8
+
+8 + 4 = 12
+
+12 + 0 = 12
+
+12 + 1 = 13
+
+13 + 2 = 15
+
+15 + 5 = 20
+
+So, total count C = 20.
+
+Wait, so C is 20.
+
+Therefore, according to the above formula, to have relative SE ≤ 0.01, we need:
+
+20 ≥ (z / 0.01)^2
+
+So,
+
+(z / 0.01)^2 ≤ 20
+
+=> z^2 / 0.0001 ≤ 20
+
+=> z^2 ≤ 20 * 0.0001
+
+=> z^2 ≤ 0.002
+
+But z is the z-score for the desired confidence level. For a 1% uncertainty, we might be talking about a 95% confidence interval, which uses a z-score of approximately 1.96.
+
+So, plugging z = 1.96:
+
+(1.96 / 0.01)^2 ≈ (196)^2 = 38416
+
+Which is way larger than 20. So, clearly, that approach isn't working.
+
+Wait, maybe I messed up the steps. Let's go back.
+
+We have C = 20, and we need relative SE ≤ 0.01.
+
+From above, relative SE = z / sqrt(C) ≤ 0.01
+
+So, z ≤ 0.01 * sqrt(C)
+
+But z is a fixed value (e.g., 1.96 for 95% CI), so:
+
+0.01 * sqrt(C) ≥ z
+
+=> sqrt(C) ≥ z / 0.01
+
+=> C ≥ (z / 0.01)^2
+
+Which is the same as before.
+
+But with C=20, and z=1.96, we get:
+
+C ≥ (1.96 / 0.01)^2 ≈ 38416
+
+Which is way larger than 20.
+
+But in our case, C=20, so this suggests that the relative SE is z / sqrt(20) ≈ 1.96 / 4.472 ≈ 0.44, which is 44% uncertainty. That's way more than 1%.
+
+Therefore, this method is not directly applicable here because we have only 10 measurements, which give us a low total count of 20, leading to a high relative standard error.
+
+Hmm, maybe I need a different approach.
+
+Wait, perhaps the problem is more about the time needed for the count to reach a certain precision, not the number of measurements. The student is making measurements each second, so the number of measurements is 10. But perhaps the question is about how long to observe to reduce the uncertainty in the decay rate to 1%.
+
+Wait, the student is already making 10 measurements. So, maybe the question is about how long to observe (i.e., how many seconds to count) such that the uncertainty in the rate is 1%. The options are 80, 160, 2000, 5000 s.
+
+But the student has already made 10 measurements, so maybe the question is about how long to observe to get sufficient counts to estimate
+[overthinking]
+Okay, so I've got this multiple-choice question about radioactive decay measurements, and I need to figure out why the correct answer is 160 seconds. Let me see how I can approach this.
+
+First, the question says a student makes 10 one-second measurements of the disintegration of a long-lived radioactive isotope and gets these values: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. Then it asks how long the student should count to establish the rate to an uncertainty of 1 percent. The options are 80, 160, 2000, or 5000 seconds.
+
+Hmm, okay. So, I think this has to do with radioactive decay rate measurements and how many measurements are needed to estimate the decay constant or the half-life accurately. The question mentions an uncertainty of 1 percent, so we need enough measurements to estimate the rate with that level of precision.
+
+Let me recall some concepts. Radioactive decay follows an exponential law, right? The formula is N(t) = N₀ * e^(-λt), where λ is the decay constant. The rate of decay can be expressed as λ = ln(2)/T, where T is the half-life. So, if we can estimate λ accurately, we can determine T.
+
+But how does this relate to the measurements the student took? The measurements are counts of decays per second. Since each measurement is one second, each value represents the decay count in that second. So, to get an average decay rate, we can sum all these counts and divide by the number of seconds, which is 10. That should give us an average rate.
+
+Let me calculate the total counts first. Adding up the numbers: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5. Let me do this step by step:
+
+3 + 0 = 3  
+3 + 2 = 5  
+5 + 1 = 6  
+6 + 2 = 8  
+8 + 4 = 12  
+12 + 0 = 12  
+12 + 1 = 13  
+13 + 2 = 15  
+15 + 5 = 20.
+
+So, the total count is 20 over 10 seconds, which means the average rate is 2 decays per second. Hmm, interesting. So the average rate is 2 s⁻¹.
+
+But the question is about establishing the rate to an uncertainty of 1 percent. That means we need to find how many measurements (each second) are needed so that our estimate of the rate has an uncertainty of ±1%.
+
+Wait, but we've already made 10 measurements. So, is 10 measurements enough? Probably not, because each individual measurement has some uncertainty, and 10 might not be sufficient to get to 1% accuracy.
+
+Alternatively, maybe this is a question about the law of large numbers? To estimate a population parameter with a certain confidence interval, we need a sufficient sample size. In this case, we're estimating λ, the decay constant, and we want our estimate to be within 1% of the true value.
+
+So, how does the sample size relate to the uncertainty? The standard error of the estimator would depend on the variance of the measurements. But since each measurement is one second, and counts are discrete, I might need to think about the variance here.
+
+Wait, actually, each measurement is a count of decays in a one-second interval. So, the variance for each measurement would be related to the expected number of decays. The count follows a Poisson distribution, right? Because radioactive decay is a Poisson process.
+
+So, if we have n measurements, each with a mean μ and variance σ² = μ, then the total count over n measurements would have a mean of nμ and variance nμ. But since each measurement is one second, and the counts are independent, adding them up is like summing independent Poisson variables, which results in a Poisson variable with mean nμ and variance nμ.
+
+But in our case, the sum over 10 seconds is 20, so the mean μ is 20 / 10 = 2. Therefore, the variance for each measurement is μ = 2, so the variance for the total count is nμ = 10 * 2 = 20. But wait, that seems like the variance of the sum.
+
+But actually, each measurement is one second, so each has a variance of 2. Thus, the sum of 10 independent measurements would have a variance of 10 * 2 = 20. So, the standard deviation is sqrt(20) ≈ 4.472.
+
+Therefore, if we want to estimate the total count with a certain precision, the standard error is sqrt(20). But how does this relate to the 1% uncertainty in the rate?
+
+Wait, the rate λ is related to the total count as λ ≈ total_count / time. We have total_count = 20, and time = 10 seconds, so λ ≈ 2 s⁻¹.
+
+But if we want to estimate λ with a 1% uncertainty, we need to find the number of seconds n such that the error in λ is less than 1% of λ.
+
+Since λ = ln(2)/T, but maybe we don't need T here. Alternatively, think about the standard error of λ.
+
+If we have n measurements, each with a known variance, then the standard error of the average rate can be calculated. The rate is counts per second, so the standard error would be sqrt(p/(n)), where p is the probability per second. But wait, this is for binomial counts. However, in our case, the counts follow a Poisson distribution because the radioactive decay is a Poisson process.
+
+So, the variance of each measurement is equal to the mean, which is p, the probability of decay in one second. So, in this case, p is the average rate we calculated, which is 2 per second.
+
+Therefore, the variance of each measurement is 2, and the variance of the average over n measurements is 2 / n.
+
+So, the standard error of the average rate is sqrt(2 / n). We want this standard error to be 1% of the rate. So, 1% of 2 is 0.02.
+
+So, setting sqrt(2 / n) ≤ 0.02.
+
+Let's solve for n:
+
+sqrt(2 / n) ≤ 0.02  
+Square both sides: 2 / n ≤ 0.0004  
+Multiply both sides by n: 2 ≤ 0.0004n  
+Divide both sides by 0.0004: n ≥ 2 / 0.0004 = 5000.
+
+Wait, that's 5000 seconds. But that's one of the options, option D. But the correct answer is supposed to be B, 160 seconds. Hmm, so maybe my reasoning is flawed.
+
+Alternatively, maybe it's not about the standard error of the rate, but the uncertainty in the total count. So, if the total count is 20 decays over 10 seconds, giving an average rate of 2 per second. But each decay is a Poisson event with mean λ = 2. So, the total count over n seconds is a Poisson variable with mean nλ = 2n.
+
+To estimate nλ with an uncertainty of 1%, we need the standard deviation of the total count, which is sqrt(nλ) = sqrt(2n). So, we want sqrt(2n) to be 1% of 2n. Wait, that doesn't make much sense, because 1% of 2n is 0.02n, which would lead to an equation sqrt(2n) ≤ 0.02n. But that seems complicated.
+
+Alternatively, maybe the relative uncertainty in the count is related to the relative uncertainty in the rate. Since rate is count / time, if we have uncertainty in count, then uncertainty in rate would be related to that.
+
+Wait, relative uncertainty in rate is approximately equal to the relative uncertainty in count divided by the count itself, because rate = count / time. So, if you have an uncertainty in count ΔN, then Δλ ≈ -λ² ΔN / (ΔN)²? Wait, no, let me think.
+
+If rate λ = N / t, then the relative uncertainty in λ is approximately equal to the relative uncertainty in N divided by N, because t is the time and is known. So, if ΔN / N is the relative uncertainty in N, then the relative uncertainty in λ is (ΔN / N) / N = ΔN / N².
+
+Given that, we want the relative uncertainty in λ to be 1%, so ΔN / N² ≤ 0.01.
+
+But N is the total count over n seconds, which is a Poisson variable with mean nλ. The standard deviation is sqrt(nλ). So, the relative uncertainty in N is ΔN / N ≈ 1 / sqrt(nλ). Therefore, plugging into the relative uncertainty in λ:
+
+(1 / sqrt(nλ)) / (nλ) ≤ 0.01  
+Wait, this is getting complicated. Let me write it step by step.
+
+Let’s denote:
+
+N = total count over n seconds ~ Poisson(nλ)  
+λ = true decay constant  
+We have estimate λ_hat = N / n  
+We want Var(λ_hat) ≤ (0.01 * λ_hat)  
+So, Var(λ_hat) is the variance of N / n, which is (1 / n²) Var(N)  
+Since N ~ Poisson(nλ), Var(N) = nλ  
+Therefore, Var(λ_hat) = (1 / n²) * nλ = λ / n  
+We want λ / n ≤ 0.01 * λ_hat  
+But λ_hat = N / n, which we're approximating as λ, so we can write λ / n ≤ 0.01 * λ  
+Dividing both sides by λ (assuming λ ≠ 0), we get 1 / n ≤ 0.01  
+Thus, n ≥ 100.
+
+So, n should be at least 100. But in our case, we have 10 measurements. So, 10 isn't enough because 10 gives Var(λ_hat) = λ / 10. If we want that to be 1% of λ, we'd need λ / 10 ≤ 0.01 λ, which would require 1 / 10 ≤ 0.01, which is not true. So, 10 is insufficient.
+
+Wait, but the question is asking how long to count, which would be n, the number of seconds. So, n needs to be 100? But 100 isn't one of the options. The options are 80, 160, 2000, 5000.
+
+Hmm, something's wrong here. Maybe I'm approaching this incorrectly.
+
+Alternatively, perhaps the question is about the number of trials needed to estimate the decay constant with a certain confidence. Maybe the student is trying to find the half-life, and the number of measurements needed relates to that.
+
+Wait, the measurements are 10 counts, but each is one second. If the student wants to establish the rate (which is λ) to an uncertainty of 1%, they might need to make enough measurements so that the error in λ is less than 1%.
+
+But in reality, the number of measurements needed to estimate λ is related to the precision of the half-life. If we can estimate λ with a certain precision, we can then find T with the same precision.
+
+Alternatively, maybe the 1% uncertainty refers to the half-life. So, if the student wants to know the half-life with 1% uncertainty, how many measurements are needed.
+
+Let me think about the formula for confidence intervals in exponential decay. For the half-life, the relative uncertainty in T can be approximated based on the relative uncertainty in λ.
+
+Since T = ln(2) / λ, the relative uncertainty in T is approximately equal to the relative uncertainty in λ.
+
+So, if we can get the relative uncertainty in λ to be 1%, then the relative uncertainty in T would also be 1%.
+
+So, going back to the earlier point, Var(λ_hat) = λ / n ≤ 0.01 * λ  
+Which simplifies to 1 / n ≤ 0.01  
+So, n ≥ 100.
+
+But again, 100 isn't an option. Wait, but maybe the initial 10 measurements can be used to estimate λ, and then we can use that to compute the required number of measurements.
+
+Wait, no. Let me think differently. Maybe it's about the number of decay events needed. If the average number of decays in a second is 2, then to get an accurate estimate of λ, we need a certain number of measurements.
+
+Wait, if each decay is counted, and each measurement is 1 second, then each measurement is independent. So, the number of decays is Poisson distributed with mean 2 per second.
+
+If we want to estimate λ, the number of decays is N = λ t, where t is time in seconds. So, to estimate λ, we need to determine N.
+
+But we have 10 measurements, each with N_i ~ Poisson(2), so total N = sum(N_i) ~ Poisson(20). So, the total number of decays over 10 seconds is 20.
+
+But how does this relate to uncertainty? The standard deviation of N is sqrt(20) ≈ 4.472. So, the standard error is about 4.472. Therefore, 20 has a standard error of around 4.5.
+
+But we want the uncertainty to be 1% of the rate. Wait, the rate is λ. Since λ = N / t, and t is 10, λ = 2.
+
+So, 1% of λ is 0.02. So, we need our estimate of N to be within ±0.02 of the true N.
+
+But N is 20, so to get within 0.02 of 20, we need a standard deviation less than 0.02. But the standard deviation is about 4.5, which is way larger.
+
+Therefore, 10 measurements are not enough. So, we need more measurements so that the standard deviation of N is less than 0.02.
+
+The standard deviation of N is sqrt(λ t) = sqrt(2 * n), where n is the number of seconds. Wait, no, if we take n measurements, each second, then N ~ Poisson(n λ). So, Var(N) = n λ = n * 2.
+
+Wait, no. If we have n seconds, and each second has a Poisson count with mean λ = 2, then the total count N over n seconds is Poisson(n λ) = Poisson(2n). So, Var(N) = 2n.
+
+So, the standard deviation is sqrt(2n). We want sqrt(2n) ≤ 0.02.
+
+Wait, but if we have n seconds, and N is the total count, then to have N estimated with a standard error of 0.02, we need sqrt(2n) ≤ 0.02.
+
+Solving sqrt(2n) ≤ 0.02  
+2n ≤ 0.0004  
+n ≤ 0.0002
+
+But n has to be positive, so this would require n ≈ 0.0002 seconds, which is not feasible.
+
+Wait, that can't be. Maybe my reasoning is wrong here.
+
+Alternatively, since rate λ is N / t, where t is the time in seconds, and N is the total count. So, Var(λ) = Var(N / t) = Var(N) / t² = (2n) / t².
+
+But if we want the uncertainty in λ to be 1% of λ, then Var(λ) ≤ (0.01 λ)^2.
+
+So, (2n) / t² ≤ (0.01 λ)^2.
+
+But λ = N / t, and if we have t seconds, N ~ Poisson(λ t) = Poisson(2t). So, λ t = 2t.
+
+Therefore, Var(λ) = (2n) / t² ≤ (0.01 * (2t))²
+
+Wait, this is getting tangled. Maybe an alternative approach.
+
+Since we have n measurements (each second), giving us N = sum of counts ~ Poisson(nλ). We want the standard error of λ_hat = N / n to be 1% of λ.
+
+The variance of λ_hat is Var(N / n) = Var(N) / n² = (nλ) / n² = λ / n.
+
+So, Var(λ_hat) = λ / n.
+
+We want Var(λ_hat) ≤ (0.01 λ)^2.
+
+Therefore:
+
+λ / n ≤ 0.0001 λ²  
+Divide both sides by λ (λ ≠ 0):
+
+1 / n ≤ 0.0001 λ  
+So, n ≥ 1 / (0.0001 λ)  
+But λ is the true decay constant, which we're trying to estimate. Hmm, we don't know λ yet.
+
+Wait, but we can estimate λ from the data. Our data gives us N = 20 over n=10 seconds, so λ_hat = 2.
+
+But if we want the uncertainty in λ_hat to be 1% of λ_hat, then Var(λ_hat) ≤ 0.01 * λ_hat  
+Which is Var(λ_hat) = λ / n ≤ 0.01 * λ_hat  
+But λ_hat = N / n ≈ λ * t / n, since N = λ t.
+
+Wait, this seems recursive. Maybe we need to make some approximation.
+
+Assuming that λ_hat is a good estimate for λ, then Var(λ_hat) = λ / n ≤ 0.01 * λ_hat  
+So, replacing λ with λ_hat:
+
+λ_hat / n ≤ 0.01 * λ_hat  
+Divide both sides by λ_hat (assuming λ_hat ≠ 0):
+
+1 / n ≤ 0.01  
+So, n ≥ 100.
+
+So, we need at least 100 measurements (100 seconds). But 100 isn't an option either.
+
+Wait, but the options are 80, 160, 2000, 5000. So, 160 is an option, but according to this, n should be at least 100.
+
+Hmm, maybe there's another way to think about this.
+
+Alternatively, the student could be trying to find the half-life with 1% uncertainty. So, perhaps using the formula for confidence intervals in half-life estimation.
+
+The half-life T is related to λ by λ = ln(2)/T. So,
+[overthinking]
+Okay, so I have this question about radioactive disintegration measurements and determining how long to count to establish the rate with an uncertainty of 1 percent. Hmm, let me try to figure this out step by step. 
+
+First, the problem says a student made 10 one-second measurements of the disintegration of a long-lived radioactive isotope. The values obtained are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. So, these are the counts per second, right? 
+
+I think the goal here is to determine how many seconds the student should count in order to establish the disintegration rate with 1 percent uncertainty. The options given are 80, 160, 2000, and 5000 seconds. The answer is said to be 160 seconds, option B. But I need to understand why.
+
+Let me recall some concepts from radiation counting and statistics. When measuring radioactive decay, especially with a device like a Geiger-Muller counter, the counts follow a Poisson distribution. But when you have a large number of counts, the distribution approaches a normal distribution, especially if the activity is high. So, maybe the student is using a normal approximation here.
+
+The question is about establishing the rate with an uncertainty of 1 percent. That means we want to find the number of counts needed so that the estimated rate doesn't vary by more than 1% from the true rate. To do this, we can use the concept of confidence intervals, probably a 95% confidence interval since it's a common choice for 1 percent uncertainty (though sometimes people might use a 90% interval, but 1% is pretty strict, so maybe 95%).
+
+But wait, the problem doesn't specify the confidence level, just the uncertainty of 1 percent. Hmm, maybe they want a 95% confidence interval? Or perhaps an interval that allows for 1% uncertainty on either side. Let me think.
+
+In any case, since we're dealing with counts, and we have 10 seconds of data, maybe we can use the Law of Large Numbers or the Central Limit Theorem to estimate how many counts are needed to achieve the desired precision.
+
+Let's outline the steps:
+
+1. Calculate the mean number of decays per second (the average) from the given data.
+2. Calculate the standard deviation of the counts.
+3. Use the formula for the confidence interval based on the normal approximation: ± z * (σ / sqrt(n)), where z is the z-score for the desired confidence level, σ is the standard deviation, and n is the number of seconds being counted.
+4. Set up the equation so that the desired uncertainty is 1% of the mean, solve for n.
+
+Wait, but in this case, the student is counting for n seconds, right? So the original data is for 10 seconds, but the question is about extending the counting time to establish the rate with 1% uncertainty.
+
+Hold on, maybe I need to consider that the 10 measurements are used to estimate the true rate, and then we compute how many additional counts are needed to reach the desired precision.
+
+Alternatively, perhaps it's better to model this as: given the initial 10 measurements, what's the total number of counts needed so that the total count is accurate to within 1% of the true rate.
+
+Let me approach this more methodically.
+
+First, let's compute the average number of decays per second from the given data. 
+
+The data points: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+So, adding these up: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5 = let's compute:
+
+3 + 0 = 3
+
+3 + 2 = 5
+
+5 + 1 = 6
+
+6 + 2 = 8
+
+8 + 4 = 12
+
+12 + 0 = 12
+
+12 + 1 = 13
+
+13 + 2 = 15
+
+15 + 5 = 20.
+
+Total counts = 20
+
+Number of measurements = 10 seconds
+
+So, average count per second, μ = 20 / 10 = 2 counts per second.
+
+Next, we need the standard deviation of the counts. Since the counts follow a Poisson distribution when counting decay events, but for small λ (like here, λ=2), the variance is approximately equal to the mean, but for better accuracy, we can use the formula for Poisson variance.
+
+Wait, but Poisson distribution has variance equal to μ. So, σ^2 = μ = 2, so σ = sqrt(2) ≈ 1.414.
+
+But wait, the counts are individual counts, right? So each count is a single decay event. Therefore, the distribution of these counts is Poisson with λ=2. But when we have multiple measurements, the sum of counts over multiple intervals approaches a normal distribution.
+
+But in this case, we have 10 measurements each of 1 second, so the total counts are 20, which is 2 per second. So, the sum of these counts is a Poisson random variable with λ=2*10=20? Wait, no, that's not quite right.
+
+Wait, each count is a single decay, so each second, the number of counts is Poisson with λ equal to the decay constant multiplied by the time, but in this case, the student is measuring each second, so perhaps the counts per second are Poisson with λ=1 (assuming each second, the probability of decay is λ). Hmm, this is getting a bit confusing.
+
+Alternatively, maybe it's better to model the counts per second as a Poisson process, where the number of counts in each interval is Poisson distributed with λ = the true decay rate per second.
+
+Given that the student made 10 measurements, each of 1 second, and got counts as 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+So the total counts over 10 seconds is 20, so the average is 2 per second.
+
+But if the counts per second are Poisson, then each count is a Poisson variable with λ=2.
+
+So, the standard deviation for each count is sqrt(λ) = sqrt(2) ≈ 1.414.
+
+But wait, the student is making 10 measurements of 1 second each, so each count is a count per second, so each count is a Poisson variable with λ=2.
+
+Therefore, the standard deviation for each count is sqrt(2), as above.
+
+But the problem is about how long to count to establish the rate. So, perhaps we need to find the number of seconds n such that the error in the rate is less than 1%.
+
+The rate is μ = 2 counts per second, we want the uncertainty to be 1%, so the error in the rate should be less than μ * 1% = 0.02 counts per second.
+
+But how does this translate into the number of seconds?
+
+Wait, perhaps we need to model this as the standard error when estimating the rate.
+
+If we let n be the number of seconds we need to count, then the total counts would be something like X ~ Poisson(n * λ), but actually, when estimating the rate, the sum over n seconds would be Poisson distributed with λ = n * true_rate.
+
+But since we're estimating the rate, the average, we can model the total counts as a normal distribution with mean n * μ and variance n * μ.
+
+Wait, maybe not. Let me think again.
+
+If the counts per second are Poisson with λ = true_rate, then the sum over n seconds would have a Poisson distribution with λ = n * true_rate. But since n can be large, the sum can be approximated by a normal distribution with μ = n * true_rate and σ^2 = n * true_rate.
+
+But we have already estimated the true_rate as 2 counts per second, based on 10 seconds of data. So, to estimate n such that the uncertainty in the rate is 1%, we can find the required n so that the standard error is less than 1% of 2.
+
+Wait, the standard error formula for the rate estimator is σ / sqrt(n), where σ is the standard deviation of the counts per second.
+
+Wait, the true counts per second are Poisson with λ = μ_true. We have estimated μ_true as 2, but it's an estimate. So the estimation error comes from the variance.
+
+So, if we want our estimate of μ to be within 1% of the true μ, that is, ±0.02.
+
+But in terms of error propagation, the standard error in the rate (μ) is given by σ / sqrt(n), where σ is the standard deviation of the counts per second.
+
+But wait, in this case, for the counts per second, each is Poisson(λ), so σ = sqrt(λ). So σ = sqrt(2) ≈ 1.414.
+
+So, standard error in the rate estimation is σ / sqrt(n). Wait, but n here is the number of seconds we are counting, right?
+
+Wait, no, I think the standard error of the rate is σ_count / sqrt(n), where σ_count is the standard deviation of the counts per second, and n is the number of seconds.
+
+But in this case, σ_count is sqrt(2), and we need σ_count / sqrt(n) <= 0.02 (since 1% of 2 is 0.02).
+
+So, sqrt(2) / sqrt(n) <= 0.02
+
+Solving for n:
+
+sqrt(2) / 0.02 <= sqrt(n)
+
+sqrt(n) >= sqrt(2) / 0.02
+
+Compute sqrt(2)/0.02: sqrt(2) ≈ 1.414, so 1.414 / 0.02 ≈ 70.7
+
+So sqrt(n) >= 70.7, which means n >= (70.7)^2 ≈ 5000 seconds.
+
+Wait, that would give n = 5000 seconds, but that's one of the options, option D. But the correct answer is supposed to be 160 seconds. Hmm, so I must have made a mistake.
+
+Wait, let me think again. Maybe I confused the standard deviation of the rate with the standard deviation of the counts. Alternatively, perhaps I need to model the sum of counts over n seconds.
+
+Wait, if we let n be the number of seconds, then the total counts X over n seconds is Poisson distributed with λ = n * μ, where μ is the true rate.
+
+But since we have an estimate of μ based on 10 seconds, perhaps we can model the total counts as a normal variable with mean n * μ and variance n * μ, because for Poisson counts, the variance is equal to the mean.
+
+Therefore, if we have X ~ Normal(n * μ, n * μ)
+
+We want the uncertainty in the rate μ to be 1%, so we can express this as:
+
+|X / (n * t) - μ / t| <= 1% * μ / t
+
+Wait, maybe that's getting too complicated.
+
+Alternatively, perhaps the relative uncertainty in the rate is given by the standard error divided by the mean.
+
+The relative standard error (RSE) is given by σ / μ, where σ is the standard deviation of the estimator.
+
+But here, the estimator is the count over n seconds, which is an estimate of the rate μ.
+
+Wait, hold on. Let me try to formalize this.
+
+Let’s denote:
+
+- μ: the true rate (counts per second)
+- X: total counts over n seconds
+- Then, X ~ Poisson(n * μ)
+- For large n, X approximates Normal(n * μ, n * μ)
+
+We have an estimator for μ, which is X / n. The variance of this estimator is Var(X / n) = Var(X) / n^2 = (n * μ) / n^2 = μ / n. So, the standard error of the estimator is sqrt(μ / n).
+
+Thus, the relative standard error is sqrt(μ / n) / μ = sqrt(1 / (n * μ)).
+
+Wait, so RSE = 1 / sqrt(n * μ)
+
+We want RSE <= 1%, so:
+
+1 / sqrt(n * μ) <= 0.01
+
+Thus,
+
+sqrt(n * μ) >= 100
+
+Squaring both sides,
+
+n * μ >= 10,000
+
+So,
+
+n >= 10,000 / μ
+
+We have μ estimated as 2, so:
+
+n >= 10,000 / 2 = 5,000 seconds.
+
+Again, I get 5,000 seconds, which is option D. But the answer is supposed to be 160 seconds. Hmm. Something is wrong here.
+
+Wait, perhaps I'm not accounting for the fact that the initial 10 measurements are used to estimate μ. So, actually, n is the total number of seconds we need to count, including the initial 10 seconds. So in that case, the initial 10 seconds gives us an estimate of μ, and then we count for an additional n - 10 seconds.
+
+But the question says "how long should the student count", so maybe it's starting from zero, but the student already has 10 measurements. Hmm.
+
+Alternatively, maybe we need to use the 10 measurements to compute the standard deviation, and then use the formula for the number of trials needed to estimate the rate with a certain confidence.
+
+Wait, another approach is to compute the confidence interval for the rate based on the 10 measurements, and then determine how many more measurements (seconds) are needed to reduce the uncertainty to 1%.
+
+So, let's compute the confidence interval for the rate based on the 10 measurements, and then see how many more seconds are needed to make the confidence interval's width be 1% of the mean rate.
+
+First, compute the average: total counts = 20, over 10 seconds, so average μ = 2.
+
+Next, compute the standard deviation of the counts per second. Each count is Poisson(2), so the variance is 2, so standard deviation is sqrt(2) ≈ 1.414.
+
+But the counts per second are themselves random variables. So, over n seconds, the total count would be the sum of n independent Poisson(2) variables, which is Poisson(2n). But for n large, it approximates a normal distribution with mean 2n and variance 2n.
+
+Wait, so the total count over n seconds is approximately N(2n, 2n).
+
+But we want the estimated rate, which is total count divided by n, to be within 1% of the true rate.
+
+So, the estimated rate is (Total Count) / n, which is approximately Normal(2, 2 / n).
+
+Wait, because Var(Total Count) = 2n, so Var(Rate) = Var(Total Count) / n^2 = 2 / n.
+
+So, the standard deviation of the estimated rate is sqrt(2 / n).
+
+We want the uncertainty in the rate to be 1%, so we want 2 * 1% = 0.02 on either side.
+
+Thus, setting 2 / n ≈ (0.02)^2?
+
+Wait, no, wait.
+
+If the standard deviation of the rate estimator is sqrt(2 / n), and we want this to be less than or equal to 0.02.
+
+So,
+
+sqrt(2 / n) <= 0.02
+
+Squaring both sides:
+
+2 / n <= 0.0004
+
+Then,
+
+n >= 2 / 0.0004 = 5000 seconds.
+
+Again, I get 5000 seconds, which is D. But the correct answer is 160. Hmm, clearly I'm missing something.
+
+Wait, maybe the initial data is used to compute the standard error, and then we need to find n such that the standard error is reduced to 1%.
+
+Alternatively, maybe the question is about the number of trials needed to estimate the rate with a 1% uncertainty using the initial data and additional counts.
+
+Wait, let me consider that.
+
+We have 10 measurements, each with a Poisson distribution, so the counts per second have a variance of 2, as above.
+
+So, if we want to estimate the rate to within 1%, the standard error should be less than 1%.
+
+Thus, the standard error is σ / sqrt(n), where σ is the standard deviation of the counts per second, and n is the number of seconds.
+
+But wait, σ is the standard deviation of the counts per second, which is sqrt(2). So, the standard error of the rate estimator is sqrt(2) / sqrt(n).
+
+We need sqrt(2) / sqrt(n) <= 0.02
+
+So,
+
+sqrt(n) >= sqrt(2) / 0.02 ≈ 1.414 / 0.02 ≈ 70.7
+
+Thus,
+
+n >= (70.7)^2 ≈ 5000. Again, same result.
+
+Wait, so why is the correct answer 160? I must be misunderstanding something.
+
+Wait, let's read the question again: "How long should the student count to establish the rate to an uncertainty of 1 percent?"
+
+So, perhaps the student should count not just once, but multiple times? Or is it about the total number of counts?
+
+Wait, another thought: Maybe the problem is related to the number of trials needed for the total count to be accurate to within 1%. So, the total count should have an uncertainty less than 1% of the mean.
+
+But in that case, using the central limit theorem, the total count over n seconds is approximately normal with mean n * μ and variance n * μ.
+
+So, the standard deviation is sqrt(n * μ). So, the relative standard deviation is sqrt(n * μ) / (n * μ) ) = 1 / sqrt(n * μ).
+
+We want 1 / sqrt(n * μ) <= 1% (which is 0.01).
+
+Thus,
+
+1 / sqrt(n * μ) <= 0.01
+
+So,
+
+sqrt(n * μ) >= 100
+
+Squaring both sides,
+
+n * μ >= 10,000
+
+Given μ = 2,
+
+n >= 10,000 / 2 = 5,000.
+
+Again, 5,000 seconds. Hmm.
+
+Wait, perhaps the initial data is being used to compute the standard deviation, and then the number of counts needed is based on that.
+
+Wait, the data is 10 measurements, each second. Let's compute the variance.
+
+Total counts: 20
+
+Mean: 2
+
+Sum of squares: let's compute (3^2 + 
+[overthinking]
+Okay, so I have this question about radioactive decay and how long a student should count to establish the rate with an uncertainty of 1 percent. The measurements given are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The options are 80 seconds, 160 seconds, 2000 seconds, and 5000 seconds, and the answer is supposed to be 160 seconds. Hmm, let me try to figure out why.
+
+First, I remember that radioactive decay follows an exponential law, which can be modeled by the formula:
+
+N(t) = N₀ * (1/2)^(t/τ)
+
+Where:
+- N(t) is the number of undecayed nuclei at time t,
+- N₀ is the initial number of nuclei,
+- τ is the half-life of the isotope.
+
+But in this case, the student is measuring the number of decays, right? So if we let D(t) be the number of decays by time t, then D(t) = N₀ - N(t).
+
+So, substituting the exponential formula into this, we have:
+
+D(t) = N₀ - N₀*(1/2)^(t/τ) = N₀*(1 - (1/2)^(t/τ))
+
+Therefore, the decay rate λ (lambda) can be expressed as:
+
+λ = ln(2)/τ
+
+But I also recall that the decay rate can be related to the decay counts. Since each measurement is a count of decays, perhaps we can model the decay rate by considering the counts.
+
+However, the counts themselves are discrete, but for small time intervals, we can approximate the decay rate as continuous. So, maybe the average decay rate can be calculated from the counts.
+
+Wait, but the problem says the student is making measurements of the disintegration at 10 one-second intervals. So the measurements are D(0), D(1), D(2), ..., D(9). But actually, if the student starts counting at time t=0, the first measurement is at t=0, which is the initial count, and then t=1, t=2, up to t=9? Wait, no, because 10 measurements from 0 to 9 seconds, each one second apart. So the last measurement is at t=9 seconds.
+
+But wait, the given measurements are 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. So, 10 measurements. So that's t=0 to t=9.
+
+But wait, the first measurement is at t=0, right after the sample is prepared. Then t=1, t=2, up to t=9, so 10 measurements. So the time span is from t=0 to t=9, which is 10 seconds.
+
+But the question is about how long the student should count to establish the decay rate to an uncertainty of 1 percent. So we need to determine the required time to measure the decay rate with an uncertainty of 1%. So, probably, we need to calculate how many counts are needed to get the rate with 1% uncertainty.
+
+Alternatively, maybe it's about determining the half-life using these measurements and then calculating the necessary time to get the rate to within 1%.
+
+Wait, the measurements are the number of decays per second? Or is it counts of decays at each second mark.
+
+So, if the student is measuring the number of decays each second, then the decay rate can be calculated as the average number of decays per second.
+
+But the measurements given are single counts each second. So at t=0, 3 decays; t=1, 0 decays; t=2, 2 decays, and so on.
+
+So, the rates would be 3 decays in 1 second at t=0, 0 decays per second at t=1, 2 decays per second at t=2, etc.
+
+Wait, actually, each measurement is a count, so the decay rate between t and t+1 is approximately equal to the count at t+1, because each second is a small time interval.
+
+But I think it's not exactly precise because the decays can't be counted as rates directly because they are discrete. But for a rough estimate, perhaps the average rate can be calculated.
+
+Alternatively, maybe we should think of this as a Poisson process, where the number of decays in a small interval is Poisson distributed, but here we have counts over one-second intervals.
+
+So, if we have 10 measurements, each one second apart, we can compute the average decay rate per second.
+
+So, the student has measured 10 decay counts, each one per second. So, adding up all the decay counts, sum them up, divide by the number of seconds (10 seconds) to get the average decay rate per second.
+
+Wait, but the first measurement is at t=0, which is the initial count, but in reality, the decay starts from t=0, so the count at t=0 is N₀.
+
+But in radioactive decay, the count at each second is the number of decays during that second. So, the count at t=0 would actually represent the number of decays in the very first second, from t=-1 to t=0, which isn't usually how we count. Wait, maybe the measurement at t=0 is the number of decays at t=0, not the rate.
+
+Wait, this is getting a bit confusing. Let me think step by step.
+
+If the student starts the counter at t=0 and measures the number of decays during each second interval.
+
+So, the first measurement is from t=0 to t=1, which is the first second. The count is 3.
+
+Similarly, from t=1 to t=2, count is 0; t=2 to t=3, count is 2; and so on up to t=9 to t=10, which is the count of 5. Wait, but wait, the measurements given are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. That's 10 measurements, so the last measurement is at t=9 to t=10. So, the time span is from t=0 to t=10, 10 seconds in total?
+
+Wait, maybe. So, the student started the counter at t=0, then measured each second, so the counts are for each one-second interval.
+
+So, the total time is 10 seconds. But the question is how long the student should count to establish the rate with an uncertainty of 1%. So, is it about how many counts are needed?
+
+Alternatively, perhaps it's about determining the half-life and then calculating how long it takes for the count to stabilize or something like that.
+
+Wait, but the measurements given are already 10 counts over 10 seconds. So, if the student needs to establish the rate to an uncertainty of 1%, then perhaps they need more counts?
+
+Wait, but the answer is 160 seconds, which is much longer than 10 seconds. So, perhaps the approach is to model the number of decays as a Poisson process and calculate the required number of trials to estimate the rate with a certain precision.
+
+Alternatively, maybe the problem is similar to the "how many trials to estimate a Poisson rate" problem, where the number of observed events is used to estimate the rate.
+
+Given 10 measurements, the counts per second are 3,0,2,1,2,4,0,1,2,5.
+
+So, the counts are not very consistent. Some are high, some are low, zeros included. So, perhaps we need to calculate the average decay rate over these 10 seconds, and then calculate the uncertainty in that rate.
+
+Wait, the counts over 10 seconds. So, the total number of decays is 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5 = let's compute that.
+
+3 + 0 is 3, plus 2 is 5, plus 1 is 6, plus 2 is 8, plus 4 is 12, plus 0 is 12, plus 1 is 13, plus 2 is 15, plus 5 is 20. So, total decays are 20 over 10 seconds, so average rate is 2 per second.
+
+Wait, 20 decays over 10 seconds is 2 per second. So, the average decay rate is λ = 2 per second.
+
+But the question is about establishing this rate with an uncertainty of 1%. So, we need to calculate the precision of this rate.
+
+The formula for uncertainty in a rate when counting events is given by the standard error. For a Poisson process, the variance of the count in a small interval is equal to the rate times the interval. So, if we have n intervals, each of duration Δt, then the variance of the total count is nλΔt.
+
+But in our case, each interval is 1 second, so Δt = 1. And n=10 intervals. So, the variance of the total count is 10*λ*1 = 10*2 = 20.
+
+But the total count was 20, so the standard deviation is sqrt(20) ≈ 4.472.
+
+But we are estimating the rate λ from the total count. Since the count is X = nλΔt, so λ = X / (nΔt). Therefore, the variance of λ is (Var(X))/(n²Δt²).
+
+Var(X) is 20, n=10, Δt=1, so Var(λ) = 20 / (100 * 1) = 0.2. So, the standard deviation of λ is sqrt(0.2) ≈ 0.447.
+
+Therefore, the relative uncertainty in λ is Var(λ)/λ ≈ 0.447 / 2 ≈ 0.223, or 22.3%.
+
+But the question asks for an uncertainty of 1%. So, our current uncertainty is about 22%, which is way higher than 1%. Therefore, we need to reduce the uncertainty to 1%.
+
+I think the way to do this is to increase the number of measurements. The standard error decreases proportionally to 1/sqrt(n). So, if we need the relative uncertainty to decrease by a factor of 22.3, then we need to increase n by a factor of 22.3^2 ≈ 500.
+
+So, the original n was 10, so new n would be 10 * 500 ≈ 5000, which is 5000 seconds. Wait, that would be option D. But the given answer is 160 seconds, which is 16 times the original 10 seconds. Hmm, 16 is sqrt(256), which is 16. But 256 is 16^2, which is (4)^4. Wait, maybe I'm mixing up something.
+
+Wait, let's think about this. The relative uncertainty is σ_rel = sqrt(Var(λ)/λ). Var(λ) is 0.2, λ is 2. So, σ_rel is sqrt(0.2 / 2) = sqrt(0.1) ≈ 0.316, so about 31.6% relative uncertainty.
+
+Wait, earlier I thought Var(λ) is 0.2, which is Var(λ) = Var(X)/(nΔt)^2. Wait, actually, let me recast this.
+
+Since X = nλΔt, Var(X) = Var(nλΔt) = n²(Var(λ))(Δt)^2.
+
+But wait, no. For a Poisson process, the count in an interval of length Δt has variance Var = λΔt. So, if we have n intervals, the total count is X = sum over n counts, each with variance λΔt.
+
+Therefore, Var(X) = n * Var(count in each interval) = n * λΔt.
+
+So, for each 1-second interval, Var = λ*1 = 2*1=2. So, over 10 intervals, Var(X) = 10*2=20. So, the standard deviation of X is sqrt(20) ≈ 4.472.
+
+Therefore, when we compute λ = X / (nΔt), where n=10, Δt=1, then Var(λ) = Var(X)/(nΔt)^2 = 20 / (10)^2 = 0.2. So, the variance of λ is 0.2, standard deviation sqrt(0.2) ≈ 0.447.
+
+Thus, the relative uncertainty is 0.447 / 2 ≈ 0.223, so 22.3%, as I had earlier.
+
+To reduce the relative uncertainty to 1%, we need to make the relative uncertainty σ_rel = 0.01. So, since σ_rel ≈ sqrt(Var(λ)/λ), we have Var(λ)/λ = (σ_rel)^2 = 0.0001.
+
+So, Var(λ) = λ * 0.0001 = 2 * 0.0001 = 0.0002.
+
+But Var(λ) = Var(X)/(nΔt)^2, so 0.0002 = 20 / (n^2 * 1^2). Therefore, 20 / n^2 = 0.0002, so n^2 = 20 / 0.0002 = 100,000. So, n = sqrt(100,000) ≈ 316.23. So, about 316 measurements.
+
+But each measurement is one second, so the total time would be approximately 316 seconds.
+
+Wait, but the answer is 160 seconds. So, that's about half of that. Hmm, maybe I made a wrong assumption here.
+
+Alternatively, perhaps the question is about the half-life and the time needed for the count to stabilize.
+
+Wait, the given measurements are 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. So, perhaps the student is trying to determine the half-life, and once enough counts are made, the half-life can be determined within 1% uncertainty.
+
+But the question says "establish the rate to an uncertainty of 1%". Hmm.
+
+Alternatively, maybe the student is trying to find the decay constant λ, and wants to know how many measurements (i.e., how much time) it would take to estimate λ with 1% uncertainty.
+
+Given that, we can use the formula for uncertainty in λ.
+
+We have X = sum of all counts, which is 20, and the number of intervals n=10, so λ_hat = X / (nΔt) = 20 / (10*1) = 2.
+
+Var(λ_hat) = Var(X)/(nΔt)^2 = 20 / (100) = 0.2.
+
+So, standard deviation of λ_hat is sqrt(0.2) ≈ 0.447.
+
+Therefore, the relative uncertainty is 0.447 / 2 ≈ 22.3%, as before.
+
+To reduce this to 1%, we can calculate how many measurements (n) are needed.
+
+Since Var(λ_hat) = 0.2 / n^2, we set 0.2 / n^2 = (0.01)^2 = 0.0001.
+
+Therefore, n^2 = 0.2 / 0.0001 = 2000, so n ≈ sqrt(2000) ≈ 44.72.
+
+So, approximately 45 measurements needed, each one second, so total time is approximately 45 seconds.
+
+But again, 45 is not one of the options. The options are 80, 160, 2000, 5000. Hmm.
+
+Wait, maybe I'm missing something. The initial number of counts is 10, but perhaps the student needs to consider the uncertainty in the half-life calculation, not the rate. Because in radioactive decay, the half-life is a parameter we want to estimate, and its uncertainty relates to the rate.
+
+Wait, the decay rate λ is related to the half-life by λ = ln(2)/τ. So, if we can estimate λ with 1% uncertainty, then τ can be estimated with the same uncertainty.
+
+But let me think about how the uncertainty in λ translates to uncertainty in τ.
+
+So, if λ has an uncertainty of 1%, then τ has an uncertainty of (1 / λ) * uncertainty in λ, because τ = ln(2)/λ.
+
+So, if the relative uncertainty in λ is 1%, then relative uncertainty in τ is approximately (1%) / λ, since dτ/τ ≈ - (dλ)/λ.
+
+Wait, let me do it properly. If λ = ln(2)/τ, then τ = ln(2)/λ.
+
+So, dτ/τ = - (dλ)/λ.
+
+Therefore, relative uncertainty in τ, σ_τ / τ = |dτ/τ| = |dλ / λ|.
+
+So, if σ_λ / λ = 0.01, then σ_τ / τ = 0.01, same as σ_λ / λ.
+
+Therefore, the uncertainty in τ is same as uncertainty in λ, which is 1%.
+
+Hmm, so maybe it's about estimating τ with 1% uncertainty.
+
+But how?
+
+Given that we have 10 measurements, we can estimate τ, and then compute how many more measurements are needed to get τ to within 1% uncertainty.
+
+Alternatively, perhaps the problem is about the precision required for the half-life estimation.
+
+I think I need to model this differently. Maybe using the total number of decays and the variance to find the confidence interval for λ.
+
+Wait, if we have X = 20 decays over n=10 seconds, so λ_hat = 2 per second.
+
+The variance of λ_hat is 0.2, so standard error is 0.447.
+
+So, a 95% confidence interval for λ would be λ_hat ± 1.96 * standard error ≈ 2 ± 4.47.
+
+But the question is about 1% uncertainty, which is much lower.
+
+Wait, maybe using the formula for the confidence interval for a Poisson rate.
+
+The confidence interval for the rate λ is given by:
+
+P( (X/n - λ) / sqrt(λ/n) ≤ z ) = 1 - α
+
+So, to get a 1% uncertainty, we can set α = 1%, so z = 2.326 (for 99% confidence) but since it's 1
+[overthinking]
+Okay, so I have this problem here about a student who's measuring the disintegration of a radioactive isotope. They took 10 one-second measurements, and the results they got are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The question is asking how long the student should count to establish the rate to an uncertainty of 1 percent. The options are 80 seconds, 160 seconds, 2000 seconds, or 5000 seconds. The correct answer is 160 seconds, option B. Hmm, let me try to figure out why that is.
+
+First, I know that radioactive decay follows the Poisson process, right? So the number of decays per unit time follows a Poisson distribution. The Poisson distribution has a single parameter, usually denoted by λ (lambda), which is the average rate. The probability of k decays in time t is given by P(k) = (e^(-λt) * λ^k) / k!.
+
+But in this problem, we're dealing with measurements over time, and we want to find the total number of decays. Wait, actually, the student is making one-second measurements, so they're counting the number of decays each second. So each measurement is for one second. So over 10 seconds, they have these counts: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+So first, I think we need to find the total number of decays over those 10 seconds. Let me add those up: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5. Let me compute that step by step:
+
+3 + 0 = 3
+
+3 + 2 = 5
+
+5 + 1 = 6
+
+6 + 2 = 8
+
+8 + 4 = 12
+
+12 + 0 = 12
+
+12 + 1 = 13
+
+13 + 2 = 15
+
+15 + 5 = 20.
+
+So the total number of decays is 20 over 10 seconds. Therefore, the average rate is 20 decays per 10 seconds, which is 2 decays per second. So λ, the decay constant, is 2 per second.
+
+Wait, but is that right? Because each measurement is for one second, so in 10 seconds, they have 20 decays. So yes, the average rate is 2 per second.
+
+Now, the question is about establishing the rate with an uncertainty of 1 percent. So, we need to find how long we need to measure to determine λ with 1% uncertainty. So, we need to compute the confidence interval for λ based on these 10 measurements.
+
+Since each measurement is a count over one second, these are individual Poisson counts. The sum of independent Poisson counts follows a Poisson distribution as well, but since we have 10 counts, each for one second, the total count is a Poisson with parameter 10λ.
+
+Wait, hold on. Let me recall: If each second has a Poisson count with parameter λ, then over t seconds, the total count is Poisson with parameter tλ. So in this case, over 10 seconds, the total count is Poisson(10λ). But we have a total count of 20, so we can write that the probability that a Poisson(10λ) variable equals 20 is given by P(10λ) = 20.
+
+But we need to find λ, so 10λ = 20 implies λ = 2, which matches our previous calculation. But we need the uncertainty in λ.
+
+Wait, but actually, we have 10 measurements, each of which is a count in one second, so each is Poisson(λ). So the sum of these 10 counts is Poisson(10λ), which is 20, so 10λ = 20 ⇒ λ = 2. So, λ is 2.
+
+But to find the uncertainty, we need to estimate the standard error of the rate. Since λ is the expected number of decays per second, and each measurement is Poisson, the variance of each measurement is λ, so the variance of the sum is 10λ. Therefore, the standard error (SE) for the rate is sqrt(λ/10), because the sum is 10λ, and the standard error for λ is sqrt(λ / N), where N is the number of measurements.
+
+Wait, hold on, let me make sure. If we have N independent Poisson measurements, each with parameter λ, then the sum S is Poisson(Nλ). So the variance of S is Nλ. Therefore, the standard deviation of S is sqrt(Nλ). If we are estimating λ from S, then the standard error of λ would be sqrt(λ / N), since the variance of λ estimator is λ / N.
+
+So, if λ is 2, then the standard error is sqrt(2 / 10) ≈ sqrt(0.2) ≈ 0.447. So, the uncertainty in λ is approximately 0.447 per second.
+
+But the question is about establishing the rate with an uncertainty of 1 percent. So, 1 percent of λ is 0.02, which is much smaller than 0.447. Therefore, we need to increase N until the standard error is less than or equal to 0.02.
+
+Wait, so we need to solve sqrt(λ / N) ≤ 0.02. We know λ is 2, so sqrt(2 / N) ≤ 0.02. Let's square both sides: 2 / N ≤ 0.0004. Then N ≥ 2 / 0.0004 = 5000. Hmm, so N needs to be at least 5000. But 5000 isn't one of the options. Wait, but the options include 5000 seconds, which is D. But the correct answer is 160 seconds, which is B. Hmm, so I must have messed something up.
+
+Wait a second, maybe I have a confusion between the number of measurements and the total counting time. The student makes 10 one-second measurements, which is 10 seconds. So the total counting time is 10 seconds, but the problem is about how long should the student count. So maybe I need to find the total time, T, such that when counting for T seconds, the uncertainty in λ is 1%.
+
+Wait, perhaps I should think in terms of the law of large numbers. If we have T measurements, each for one second, the sum S ~ Poisson(Tλ). The estimator for λ is S / T, which has variance λ / T. So the standard error is sqrt(λ / T). So we need sqrt(λ / T) ≤ 0.01 (since 1% is 0.01).
+
+So solving sqrt(2 / T) ≤ 0.01. Squaring both sides: 2 / T ≤ 0.0001. So T ≥ 2 / 0.0001 = 20,000. Wait, that's not in the options either. Hmm, that's not matching.
+
+Wait, maybe I'm misunderstanding the question. It says, "How long should the student count to establish the rate to an uncertainty of 1 percent?"
+
+So, he has already made 10 measurements, each for 1 second, so 10 seconds. Maybe he needs to make more measurements. But the question is how long in total should he count. So perhaps the number of seconds he needs to count, not the number of measurements.
+
+Wait, but in the data, he has 10 measurements. So if he continues counting, each measurement is one second. So he has 10 seconds already. So if he counts for another T seconds, the total time is 10 + T seconds, and the total number of counts is the sum of 10 measurements plus T new measurements.
+
+But wait, actually, in the problem statement, it says "a student makes 10 one-second measurements...". So already, he has 10 measurements, each second. So if he continues counting, each new measurement is a new second, so the total time would be 10 + T seconds, and the total counts would be the existing 20 counts plus the new counts over T seconds. But since the question is about establishing the rate to an uncertainty of 1%, perhaps we can consider that he needs to make more measurements, so the total number of counts N would be?
+
+Wait, no, the question is how long should the student count, i.e., the total time, not the number of counts. So if the student already has 10 seconds of counts, and then he counts for another T seconds, the total time is 10 + T seconds. To get an uncertainty of 1%, he needs to have a large enough sample so that the standard error is 1% of λ.
+
+Wait, maybe I should think about the formula for confidence intervals in Poisson distributions. The Poisson distribution's variance is equal to its mean. So if we have n counts, the mean is λ, and the variance is λ. Therefore, the standard deviation is sqrt(λ). Therefore, the standard error for λ is sqrt(λ / n), where n is the number of counts.
+
+Wait, if the student counts for T seconds, getting n decays, then sqrt(λ / n) is the standard error for λ. So, to get 1% uncertainty, we need sqrt(λ / n) ≤ 0.01, so λ / n ≤ 0.0001, so n ≥ λ / 0.0001.
+
+But we know λ is 2, so n ≥ 2 / 0.0001 = 20,000. So the student needs to have 20,000 counts to get 1% uncertainty. But the student already has 20 counts, so he needs 20,000 - 20 = 19,980 more counts. So the additional time needed would be approximately 19,980 seconds. But that's way longer than the options given.
+
+Wait, that doesn't make sense. So perhaps I have an incorrect understanding.
+
+Alternatively, maybe the question is asking not how many counts are needed, but how many seconds. So if the student continues counting, each second, the uncertainty decreases. So, we need to find the smallest T such that after T seconds, the standard error is less than 1%.
+
+Wait, but the standard error for λ is sqrt(λ / T). So sqrt(2 / T) ≤ 0.01 ⇒ T ≥ 2 / 0.0001 = 20,000 seconds. So that's again 20,000 seconds, which is option C, 2000 seconds is much less.
+
+Wait, but the correct answer is 160 seconds. So perhaps I'm misunderstanding the question entirely.
+
+Wait, maybe it's not about the Poisson process. Maybe it's about the counting process, and the student is counting the number of decays until a certain threshold is reached, but no, the question says "establish the rate to an uncertainty of 1 percent". So maybe it's about the rate, not the number of decays.
+
+Wait, actually, maybe the student is counting the number of decays per second, so each measurement is one second. Therefore, if they have 10 one-second measurements, they can estimate the rate as 20 decays over 10 seconds, so 2 decays per second. The uncertainty in that rate is 1%.
+
+So, the standard error for the rate is 1% of 2, which is 0.02. So, the standard error is sqrt( (λ) / N ), where N is the number of measurements.
+
+Wait, so λ is the rate, right? So actually, each measurement is one second, and we are estimating λ, the decay constant, from N measurements, each of duration t=1 second. So the total counts is Y = sum_{i=1}^N X_i, where X_i ~ Poisson(λ). Then, Y ~ Poisson(Nλ), and the estimator for λ is Y / N, which has variance λ / N. Therefore, the standard error is sqrt(λ / N). So to have a standard error of 0.02 (1% of λ=2), we need sqrt(2 / N) ≤ 0.02, so N ≥ 2 / 0.0004 = 5000.
+
+Therefore, the student needs to make 5000 measurements, each of 1 second, so the total time is 5000 seconds. But that's option D. But the correct answer is 160 seconds, which is option B. So I'm confused again.
+
+Wait, perhaps I need to think in terms of the confidence interval. So, the standard error is 0.02, but the confidence interval for λ is approximately standard error plus or minus. So, if we have a z-score for a 95% confidence interval, which is around 1.96. So, the confidence interval would be 2 ± 1.96 * 0.02, which is 2 ± 0.0392, so approximately 1.9608 to 2.0392.
+
+But 1% uncertainty is maybe a different kind of confidence, but perhaps it's similar. Anyway, regardless, the standard error is 0.02, and that requires N=5000.
+
+But again, that leads to 5000 seconds, which is option D, but the correct answer is 160 seconds. So perhaps I need to use another approach.
+
+Wait, maybe the problem is about the half-life or something else. The student is measuring the decay, but perhaps the question is about the total number of atoms, and using the formula for radioactive decay.
+
+Wait, the number of decays N is given by N = N0 * (1 - e^(-λ*t)). So if we know N and t, we can solve for N0, the initial number of atoms. But the problem is about establishing the rate λ, not the initial quantity. So maybe that's not it.
+
+Alternatively, maybe it's about the activity, which is λ*N0. But if the student is measuring decays per second, then the activity is λ*N0. But without knowing N0, they can only estimate λ.
+
+Wait, but in this case, the student is counting the number of decays, which is N = λ*t, so λ = N / t. But in reality, it's N = λ*t*(1 - e^(-λ*t)) approximately for small λ*t. Wait, but if λ*t is small, we can approximate N ≈ λ*t. So if the student measures N = 20 in t=10 seconds, then λ ≈ 2 per second.
+
+But to find the uncertainty, perhaps it's about the error in λ due to the finite number of measurements.
+
+Wait, so if we have a Poisson process, the variance of the count in a time t is λ*t. So in each second, the variance is 2. Therefore, the standard deviation of each count is sqrt(2) ≈ 1.414.
+
+But the student has 10 measurements, each with an SD of 1.414. So the total sum has an SD of sqrt(10*2) = sqrt(20) ≈ 4.472. Therefore, the standard error of the rate is sqrt(2 / 10) ≈ 0.447, as I thought earlier.
+
+So, to get 1% uncertainty, we need the standard error to be less than 0.02. So, solving sqrt(2 / N) = 0.02 ⇒ N = 2 / (0.02)^2 = 2 / 0.0004 = 5000. So N=5000.
+
+Therefore, the student needs to make 5000 measurements, each one second, so total time is 5000 seconds, which is option D. But again, in the problem statement, the correct answer is 160 seconds, so I must be missing something.
+
+Wait, perhaps the question is about the half-life. Let me recall that the half-life T_1/2 is related to λ by the equation:
+
+T_1/2 = ln(2) / λ
+
+So, if λ is 2 per second, then T_1/2 ≈ 0.693 / 2 ≈ 0.3465 seconds. So, the half-life is about 0.35 seconds. But that doesn't seem relevant to the question.
+
+Alternatively, maybe the question is about the activity, which is λ*N0. But without knowing N0, the initial number of atoms, we can't find the activity. So perhaps it's about the number of atoms remaining. But again, the question is about establishing the rate to an uncertainty of 1%.
+
+Wait, perhaps the student is using the formula λ = ln(2)/T_1/2, but since λ is known from the measurements, which is 2 per second, we can calculate the half-life, but that's not the question.
+
+Wait, let me think again. Maybe the student is trying to estimate λ with 1% uncertainty, but the measurements are in counts per second. So, maybe the problem is similar to estimating a binomial proportion, but it's Poisson.
+
+Wait, perhaps the formula for Poisson confidence intervals. For a Poisson distribution, the confidence interval for the mean can be calculated using the Wilson score interval or the Agresti-Coull interval. The Wilson score interval for a Poisson distribution is given by:
+
+P( (X - μ) / sqrt(μ/N) ≤ z ) = 0.5
+
+Solving for μ gives the confidence interval. For small μ/N, the interval can be approximated.
+
+But in our case, the student is summing the counts over 10 seconds, so X=20, and N=10. So, μ=2, which is what we have.
+
+The Wilson score interval for μ is:
+
+( X - z * sqrt(μ / N) ) / (1 + z * sqrt(μ / N)) ≤ μ ≤ ( X + z * sqrt(μ / N) ) / (1 + z * sqrt(μ / N))
+
+But wait, actually, the formula is a bit different. Let me recall.
+
+For a Poisson distribution, the Wilson score interval is:
+
+[ (X - z * sqrt(μ / N)) / (1 + z * sqrt(μ / N)), (X + z * sqrt(μ / N)) / (1 + z * sqrt(μ / N)) ]
+
+But this is an approximation. Alternatively, the exact confidence interval is:
+
+[ (X - z^2 / 2), (X + z^2 / 2) ]
+
+But
+[overthinking]
+Okay, so I have this question about radioactive decay and how long a student should count to determine the disintegration rate with an uncertainty of 1 percent. The measurements given are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The options are 80 seconds, 160 seconds, 2000 seconds, or 5000 seconds. The correct answer is 160 seconds, which is option B. I need to figure out why.
+
+First, I should recall some concepts about radioactive decay and counting. Radioactive decay follows an exponential law, right? The formula I remember is N(t) = N0 * e^(-λt), where N0 is the initial number of atoms, λ is the decay constant, and t is time. But in this case, the student is making measurements over time to estimate the decay rate.
+
+The problem is about determining how many measurements are needed to estimate λ with a certain uncertainty. The given measurements are counts per second, I assume, since they're one-second measurements. So each measurement is the count of decays in that one second. 
+
+I think the key here is to consider the Poisson distribution because radioactive decay events are being counted, and each second, the number of events can be modeled by Poisson distribution. The Poisson probability mass function is P(k; λ) = (λ^k e^{-λ}) / k!.
+
+But maybe that's not directly necessary. Alternatively, I remember something about the law of large numbers and how many trials are needed to estimate a proportion or mean with a certain accuracy. Since we're dealing with rates, maybe it's related to estimating the rate with a 1% uncertainty.
+
+Wait, the uncertainty is 1%, so we need to find the number of trials (measurements) needed so that our estimate of λ is within 1% of the true value. So, we need to ensure that the error in λ is less than 1%.
+
+Since the decay is measured over one-second intervals, each count is a measurement of the number of decays in that second, which is a Bernoulli trial with success probability p = λ. Assuming λ is small, the Poisson distribution approximates the binomial distribution with p = λ. So maybe that's a way to think about it.
+
+But perhaps a better approach is to think in terms of the relative error in the measured rate. If we have n measurements, each of which is one second, and in each second we count k_i decays, then the total number of decays is the sum of all k_i. The average count per second would be the total divided by n, and the uncertainty in the average would relate to the variance.
+
+Wait, maybe I should use the formula for the propagation of uncertainty. If we're estimating λ from the counts, then λ is estimated as the average count per second. The uncertainty in λ would be related to the variance of the counts.
+
+But if we need the relative uncertainty to be 1%, that means the uncertainty in λ is 1% of λ. So we need to find n such that the relative uncertainty in λ is less than 1%.
+
+Let me write down the relationship. Let’s denote x_i as the count in the i-th second. Then, λ is estimated as the average: \(\hat{\lambda} = \frac{1}{n} \sum x_i\). The variance of \(\hat{\lambda}\) is Var(\(\hat{\lambda}\)) = \(\frac{1}{n^2} \sum Var(x_i)\).
+
+Since each x_i is a count of decays in one second, each x_i follows a Poisson distribution with parameter λ (assuming λ is small, Poisson approximates binomial). The variance of a Poisson random variable is equal to its mean, so Var(x_i) = λ. Therefore, Var(\(\hat{\lambda}\)) = \(\frac{\lambda}{n}\).
+
+We need the relative uncertainty in \(\hat{\lambda}\) to be 1%, which means:
+
+Var(\(\hat{\lambda}\)) / \(\hat{\lambda}\) < 0.01
+
+Substituting Var(\(\hat{\lambda}\)) = \(\frac{\lambda}{n}\):
+
+\(\frac{\lambda / n}{\lambda}\) < 0.01
+
+Simplify:
+
+1/n < 0.01
+
+Therefore:
+
+n > 100
+
+So, n should be greater than 100. Since n must be an integer, the smallest n satisfying this is 101. But wait, the options given are 80, 160, 2000, 5000. So 100 is not an option; the next higher is 160. So maybe n needs to be 160.
+
+But why not 80? If n=80, then 1/n=0.0125, which is 1.25%, which is more than 1%. So n=80 gives a relative uncertainty of 1.25%, which is more than the required 1%. Therefore, n=160 would give 1/160=0.00625=0.625%, which is less than 1%, satisfying the condition. So, to get an uncertainty of 1%, the student needs to count for 160 seconds.
+
+Alternatively, maybe I should think in terms of the standard error. The standard error (SE) of the mean is SE = sqrt(Var(\(\hat{\lambda}\))) = sqrt(λ/n). So, if we want the relative standard error to be 1%, then:
+
+sqrt(λ/n) / λ = 1/n^0.5 < 0.01
+
+But wait, that might not be directly applicable because relative uncertainty is often expressed as (SE / \(\hat{\lambda}\)), which is sqrt(1/(nλ)).
+
+Wait, maybe I confused something here. Let me step back.
+
+If we have n independent Poisson observations, each with mean λ, then the variance of the sum is nλ. The sum S = sum x_i ~ Poisson(nλ). Then, the average \(\hat{\lambda}\) = S/n. The variance of \(\hat{\lambda}\) is Var(S)/n^2 = (nλ)/n^2 = λ/n.
+
+Thus, the standard error of \(\hat{\lambda}\) is sqrt(λ/n).
+
+Therefore, relative standard error (RSE) is SE / \(\hat{\lambda}\) = sqrt(λ/n) / \(\hat{\lambda}\).
+
+But since \(\hat{\lambda}\) is an estimate, it's related to the true λ. Let me assume that \(\hat{\lambda}\) is approximately equal to λ for large n.
+
+So, RSE ≈ sqrt(1/n).
+
+We want RSE < 0.01.
+
+Therefore, sqrt(1/n) < 0.01
+
+Square both sides: 1/n < 0.0001
+
+Multiply both sides by n: 1 < 0.0001n
+
+So, n > 1 / 0.0001 = 10,000.
+
+Wait, that's contradictory to my earlier result. Hmm.
+
+Wait, maybe this approach is incorrect because we’re estimating λ, which is a parameter, and the RSE is sqrt(1/n). But perhaps since we don't know λ, we can't directly express RSE in terms of sqrt(1/n). Alternatively, maybe we have to consider that the true λ is unknown, and we can only relate the variance in terms of λ.
+
+Wait, actually, I think the first approach was correct. We had Var(\(\hat{\lambda}\)) = λ/n, so the relative variance is 1/n, and the relative standard deviation is sqrt(1/n). So, if the student wants the uncertainty in λ to be 1%, that would correspond to the relative standard deviation being less than 1%. So:
+
+sqrt(1/n) ≤ 0.01
+
+Which implies n ≥ 10,000. But 10,000 isn't an option either, and n=160 gives sqrt(1/160) ≈ 0.056, which is about 5.6%. So this can't be right because we are getting 5.6% standard error, which is much larger than 1%. Therefore, perhaps the initial approach was wrong.
+
+Wait, I'm getting confused here. Maybe I need to use the formula for the confidence interval for the Poisson parameter.
+
+Alternatively, perhaps the question is considering the total number of disintegrations and then computing the decay constant.
+
+But let's think of it as the average number of decays per second. The student makes 10 measurements, each one second, getting the counts: 3,0,2,1,2,4,0,1,2,5.
+
+First, let's compute the total disintegrations. Sum these numbers: 3+0+2+1+2+4+0+1+2+5.
+
+Calculating that: 3+0=3; 3+2=5; 5+1=6; 6+2=8; 8+4=12; 12+0=12; 12+1=13; 13+2=15; 15+5=20.
+
+So total disintegrations in 10 seconds is 20.
+
+Therefore, average per second is 20 / 10 = 2.
+
+So the student's initial estimate of λ is 2 decays per second.
+
+But now, the question is: how long should the student count to establish the rate to an uncertainty of 1%?
+
+So, they did 10 seconds, got 2 decays per second. How many more seconds should they count? Or maybe the total time?
+
+Wait, the question says "how long should the student count", so is it total time or additional time? Wait, the problem says the student makes 10 one-second measurements, so I think they already have 10 seconds worth of data. Then, how long should they count in total to achieve 1% uncertainty.
+
+But in the question, it's written as "how long should the student count to establish the rate", so maybe starting from now, how many more seconds?
+
+Wait, maybe the initial 10 seconds are just to get some data, and the question is about the total time needed.
+
+But in the options, the smallest is 80 seconds. So perhaps after 10 seconds, how many more seconds are needed to reach 1% uncertainty.
+
+Wait, but the options are 80, 160, etc., so perhaps it's the total time, including the initial 10 seconds. Or maybe not. Hmm.
+
+Alternatively, perhaps the question is about the number of measurements needed to estimate the decay constant with 1% uncertainty, regardless of the initial measurements.
+
+So the student has 10 measurements. If they want to determine λ with 1% uncertainty, how many measurements are needed in total.
+
+But in that case, the initial data is already 10 seconds, but perhaps the question is considering the total number of seconds to be measured.
+
+Wait, perhaps I need to consider that the problem is about how many seconds are needed in total to estimate λ to within 1% relative error.
+
+So, using the formula from earlier, Var(\(\hat{\lambda}\)) = λ / n, so the relative variance is 1/n. To have relative uncertainty (which is 1σ confidence interval) of 1%, we have:
+
+1/n < 0.01
+
+So, n > 100. So they need more than 100 seconds in total.
+
+But in the options, 160 is the first number above 100, so 160 seconds.
+
+But wait, the initial 10 seconds are already done. So maybe the student needs to count an additional 150 seconds? But 150 isn't an option. Alternatively, maybe the total number of seconds needed is 160, so they should count for 160 seconds in total.
+
+Wait, the question says: "A student makes 10 one-second measurements... How long should the student count to establish the rate to an uncertainty of 1 percent?"
+
+So it's asking for the total counting time needed, which is 10 + extra time. But the options are 80, 160, etc., which are multiples of 80. Alternatively, maybe the 10 measurements are just for initial data, and the total time required for a 1% uncertainty is 160 seconds, so they need to count for 160 seconds in total.
+
+Alternatively, perhaps the student needs to do enough measurements so that the decay rate is known with 1% uncertainty, so we should calculate based on the precision needed.
+
+Wait, another approach: The uncertainty in the rate can be estimated using the standard error. If the student makes n measurements, each of duration t seconds, but in this case, each measurement is one second, so t=1.
+
+Wait, no. Wait, actually, each measurement is a one-second count, so each measurement is a single second. So n is the number of seconds.
+
+So n is the number of one-second measurements.
+
+Therefore, the student has done n=10 measurements already, getting counts as given. The total disintegrations in 10 seconds is 20, so the initial estimate is λ=2 decays per second.
+
+But now, to estimate λ with 1% uncertainty, the number of measurements needed is such that the relative uncertainty is less than 1%.
+
+From the earlier calculation, Var(\(\hat{\lambda}\)) = λ/n, so relative variance is 1/n. Therefore, 1/n < 0.01, so n > 100. So n=160 would be the next multiple of 40 or something.
+
+But wait, why isn't it 100? Because 100 would give 1% relative uncertainty.
+
+But in the given options, 80 is 1/0.0125, which is 1.25%, 160 is 1/0.00625, which is 0.625%, so less than 1%. So 160 seconds would give a relative uncertainty of approximately 0.625%, which is within the 1% requirement.
+
+But why does the initial 10 seconds of data matter? Is it just to get an initial estimate, and then the total number of measurements needed is 160?
+
+Wait, but the question says "the student makes 10 one-second measurements", and then "how long should the student count to establish the rate to an uncertainty of 1 percent". So maybe the 10 measurements are part of the total counting time.
+
+So, if they already have 10 seconds, and need to reach a total of 160 seconds, then they need 150 more seconds. But 150 isn't an option. Alternatively, perhaps the 10 measurements are considered as part of the total, so the total counting time is 160 seconds, which includes the initial 10.
+
+But the options are 80, 160, 2000, 5000. So 160 is an option, as is 80.
+
+Alternatively, maybe I'm overcomplicating. Let's think differently.
+
+If the student wants to estimate λ with 1% uncertainty, how many experiments (measurements) are needed?
+
+In general, for a Poisson process, the relative uncertainty in the rate can be approximated by 1/sqrt(n), where n is the number of experiments. So to get 1% uncertainty, 1/sqrt(n) = 0.01 => sqrt(n)=100 => n=10,000. But that's not one of the options.
+
+Wait, that can't be, because with n=10,000, the relative uncertainty is 1%. But 10,000 is not an option. So perhaps that approach is incorrect.
+
+Alternatively, maybe the problem is considering the variance of the sum of counts.
+
+If the student has n seconds of data, and in each second, the count is a Poisson variable with mean λ, then the total count is Poisson with mean nλ. The variance of the total count is nλ.
+
+If we want the uncertainty in λ to be 1%, we can consider the standard error of the total count.
+
+Wait, the total count S ~ Poisson(nλ). The standard error of S is sqrt(nλ). Therefore, the relative standard error is sqrt(nλ)/(nλ) = 1/sqrt(nλ).
+
+But we want this relative standard error to be 1%, which would imply:
+
+1/sqrt(nλ) = 0.01
+
+So sqrt(nλ) = 100
+
+Therefore, nλ = 10,000.
+
+But we don't know λ. However, from the initial 10 measurements, we have an estimate of λ=2. So substituting λ=2, we get n*2=10,000 => n=5,000.
+
+Wait, that's option D, 5,000 seconds. But the correct answer is supposed to be 160 seconds, so this can't be right.
+
+Alternatively, maybe I have to think about the law of large numbers for estimating λ.
+
+The standard error is sqrt(λ/n). So to have a 1% uncertainty, set sqrt(λ/n) = 0.01λ.
+
+Wait, but that would be sqrt(λ/n) = 0.01λ.
+
+Wait, that doesn't make sense dimensionally. Alternatively, relative standard error is (sqrt(λ/n))/λ = sqrt(1/(nλ)).
+
+Set sqrt(1/(nλ)) = 0.01
+
+Then 1/(nλ) = 0.0001
+
+So nλ = 10,000.
+
+Again, using λ=2, n=5,000.
+
+But since in reality, λ is unknown, we can't plug it in. So perhaps we need to make an approximate calculation.
+
+Alternatively, if the student is to estimate λ with 1% uncertainty, the required number of measurements is n such that n >= 1/(0.01)^2 * something.
+
+Wait, perhaps I'm overcomplicating. Maybe the question is simpler.
+
+If the student has already taken 10 measurements, and wants to know how long to count in total to get 1% uncertainty. So maybe considering the initial 10, and the number of additional measurements needed.
+
+But the problem is, the question is a bit ambiguous. It says: "A student makes 10 one-second measurements... How long should the student count to establish the rate to an uncertainty of 1 percent?" So, it's about the total counting time needed.
+
+But in the options, 160 is 16 times the 10 measurements, but 160 is 16*10, but that seems arbitrary.
+
+Wait, perhaps another approach: The total number of disintegrations in n seconds is approximately Poisson distributed with λn. The variance of λn is λn, so the standard deviation is sqrt(λn).
+
+Therefore, the relative standard deviation is sqrt(λn)/(λn)
+[overthinking]
+Okay, so I have this question about radioactive disintegration measurements. A student took 10 one-second measurements of a long-lived isotope and got the following counts: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The question is asking how long the student should count to establish the rate to an uncertainty of 1 percent. The options are 80 seconds, 160 seconds, 2000 seconds, or 5000 seconds, and the correct answer is supposed to be 160 seconds. Hmm, I need to figure out why that is.
+
+First, let me recall what I know about radioactive decay. Radioactive substances disintegrate at a constant rate, which is the activity of the substance. It's typically measured in decay units per second, like Bq (Becquerels). When you measure the number of decays over a certain time, you can estimate the decay constant or the half-life.
+
+But in this case, the student is taking measurements at one-second intervals. So each measurement is every second, and they have ten of them. Let me write down the counts: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+Wait a second, some of these counts are zero. That might complicate things. If we're counting decays in one-second intervals, a count of zero means no decays occurred in that second. So the student is observing the number of decays per second. If a count is zero, does that mean the sample has decayed completely, or is there a chance that no decay happened in that second?
+
+Hmm, perhaps I need to consider the Poisson process here. The number of decays in a given interval follows a Poisson distribution, especially if the activity is low. But in this case, the counts are varying from 0 to 5, so the activity might not be that low. Wait, but the question is about establishing the rate to an uncertainty of 1 percent. So the student needs to know the decay rate with 1% uncertainty.
+
+Let me think about how uncertainty in rate relates to the number of measurements. If you have a Poisson process, the uncertainty in the rate can be estimated using the formula related to the variance. The rate (λ) is usually estimated as the average count rate. So if we have n measurements, the average λ is the sum of all counts divided by n.
+
+But wait, in this case, the measurements are in one-second intervals, so each measurement is a one-second count. So each count is the number of decays that happened in that second. If we sum these counts over ten seconds, we get the total number of decays, which can be used to estimate the average rate.
+
+But we also need to account for the uncertainty in the rate. The problem is asking for an uncertainty of 1%, so we need to determine how many seconds the student needs to observe to get the rate accurate to within 1%.
+
+I think the formula for the confidence interval for the rate in a Poisson process is related to the variance. The variance of the number of decays in a given interval is given by Var = λ * t, where t is the interval time. Since each measurement is one second, t = 1 second. So Var = λ.
+
+But in our case, each measurement is one second, so each count is a Poisson variable with mean λ. The sum of n counts (each with mean λ and variance λ) would have a sum with mean nλ and variance nλ.
+
+Wait, so if we have n measurements, the total count is S = sum of counts, so the estimated rate λ_hat = S / n. The variance of λ_hat would then be Var(λ_hat) = Var(S / n) = (Var(S)) / n² = (nλ) / n² = λ / n.
+
+So Var(λ_hat) = λ / n.
+
+But we need to find the uncertainty in λ_hat. Since λ_hat is S / n, the relative uncertainty in λ_hat is sqrt(Var(λ_hat)) / λ_hat = sqrt(λ / n) / (S / n) = sqrt(λ / n) * n / S = sqrt(λ) / sqrt(S).
+
+But λ is the true rate, and S is the total counts. So sqrt(λ)/sqrt(S) is the relative uncertainty.
+
+Wait, maybe I should think about it differently. The relative uncertainty in λ_hat is approximately sqrt(1/(n * λ)).
+
+Wait, no, I think using the formula for the confidence interval for the Poisson process: for the rate λ, the 95% confidence interval is roughly λ_hat ± sqrt(λ_hat / n). But since we need the uncertainty to be 1%, that would be a confidence level of approximately 99%.
+
+Wait, actually, the question says "to an uncertainty of 1 percent." So perhaps 1% relative uncertainty.
+
+So the relative uncertainty is 1%, which corresponds to a confidence level of 99%. So we need to find n such that the 99% confidence interval for λ_hat has a width of 1% of λ_hat.
+
+In the Poisson process, the confidence interval for the rate is given by:
+
+CI = λ_hat ± z * sqrt(λ_hat / n)
+
+Where z is the z-score for the confidence level. For 99% confidence, z is approximately 2.576.
+
+So the width of the confidence interval is 2.576 * sqrt(λ_hat / n). We need this width to be equal to 1% of λ_hat, that is:
+
+2.576 * sqrt(λ_hat / n) = 0.01 * λ_hat
+
+Divide both sides by sqrt(λ_hat):
+
+2.576 / sqrt(n) = 0.01
+
+So sqrt(n) = 2.576 / 0.01 = 257.6
+
+Then, n = (257.6)^2 ≈ 66307.36
+
+Wait, but n is 10 in this case. That can't be. So perhaps my approach is wrong.
+
+Wait, maybe I need to consider the total counts S, not n. Because S = n * λ_hat, so n = S / λ_hat.
+
+So let's substitute n into the equation.
+
+From 2.576 / sqrt(n) = 0.01
+
+But n = S / λ_hat, so:
+
+2.576 / sqrt(S / λ_hat) = 0.01
+
+Simplify:
+
+2.576 / sqrt(S) * sqrt(λ_hat) = 0.01
+
+Which leads to:
+
+sqrt(λ_hat) / sqrt(S) = 0.01 / 2.576 ≈ 0.003883
+
+Then, square both sides:
+
+λ_hat / S = (0.003883)^2 ≈ 0.0000151
+
+But λ_hat is S / n, so λ_hat = S / n.
+
+Substituting back:
+
+(S / n) / S = 1 / n = 0.0000151
+
+So n = 1 / 0.0000151 ≈ 66314.3
+
+Still, n is about 66,314, which is way larger than 10. Hmm, seems like something is wrong.
+
+Wait, maybe I'm confusing the relative uncertainty with the absolute uncertainty. Alternatively, perhaps the uncertainty is in the count, not the rate.
+
+Wait, the problem says "to establish the rate to an uncertainty of 1 percent." So the uncertainty is in the rate, not the count. So 1% in the rate.
+
+Given that, using the Poisson process formula, the relative uncertainty in the rate is sqrt(1/(n * λ)).
+
+Wait, let me double-check that.
+
+The variance of the count in one second is λ, so the variance of the rate estimator λ_hat = S / n is Var(λ_hat) = Var(S / n) = Var(S) / n² = (n λ) / n² = λ / n.
+
+Therefore, the standard error of λ_hat is sqrt(Var(λ_hat)) = sqrt(λ / n). The relative uncertainty is sqrt(λ / n) / λ_hat = sqrt(λ / n) / (S / n) = sqrt(λ) / sqrt(S).
+
+Wait, that seems similar to what I had before.
+
+But if we know the total count S and want the relative uncertainty in λ_hat to be 1%, so:
+
+sqrt(λ) / sqrt(S) = 0.01
+
+But λ = S / n, so:
+
+sqrt(S / n) / sqrt(S) = 0.01
+
+Simplify:
+
+sqrt(1 / n) = 0.01
+
+So sqrt(n) = 100
+
+Therefore, n = 10,000.
+
+Hmm, that suggests n needs to be 10,000. But the options are 80, 160, 2000, 5000. 10,000 is not an option. So perhaps my approach is missing something.
+
+Wait, maybe the counts are being taken over intervals, and we need to consider the uncertainty in the rate based on the counts. Alternatively, maybe the problem is more about the law of large numbers, rather than the central limit theorem for Poisson.
+
+Alternatively, perhaps the method is to use the formula for the confidence interval based on the sum of counts.
+
+The number of decays is a Poisson process, so the total counts S over n intervals is approximately Poisson distributed with mean nλ. The variance is also nλ.
+
+So if we have the count S, the standard deviation of S is sqrt(nλ). So the relative standard deviation is sqrt(nλ)/nλ = sqrt(1/(nλ)).
+
+Wait, but that seems different.
+
+If we need the relative uncertainty in λ_hat = S/n to be 1%, that is:
+
+Standard deviation of λ_hat / λ_hat = (sqrt(nλ)/n) / (S/n) = sqrt(nλ)/S = sqrt(nλ)/ (nλ) ) = 1 / sqrt(nλ)
+
+Set this equal to 0.01.
+
+So 1 / sqrt(nλ) = 0.01
+
+Therefore, sqrt(nλ) = 100
+
+So nλ = 10,000
+
+But λ is the true decay constant, which is S_total / n_total, where S_total is the total counts over an extended period. Wait, this is getting too convoluted.
+
+Wait, let me think of an alternative approach. Maybe using the formula for the error in the rate due to counting errors.
+
+But in this case, each measurement is one second, so the number of counts in each second is approximately Poisson distributed. So the total counts over n seconds is Poisson distributed with parameter nλ.
+
+But the student is measuring for 10 seconds, getting counts S = 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5 = let's compute that.
+
+3 + 0 is 3, plus 2 is 5, plus 1 is 6, plus 2 is 8, plus 4 is 12, plus 0 is 12, plus 1 is 13, plus 2 is 15, plus 5 is 20.
+
+So S = 20 counts over 10 seconds, so the average rate λ_hat is 20 / 10 = 2 decays per second.
+
+But wait, the student is asking how long to count to get the rate to 1% uncertainty. So perhaps the student needs to know the true rate with 1% uncertainty.
+
+But the problem is that the student's measurements are only 10 seconds, so S = 20. If the student wants to estimate the rate with 1% uncertainty, they need to know how many more measurements (i.e., seconds) are needed.
+
+But perhaps the problem is related to the uncertainty in the rate given the number of counts.
+
+Wait, if we have n measurements, the standard error of the rate is sqrt(λ / n). So to have a 1% uncertainty, we need sqrt(λ / n) = 0.01 λ.
+
+Wait, no, 1% uncertainty is 0.01 times the rate.
+
+Wait, let me rephrase.
+
+We have λ_hat = S / n. The standard error of this estimate is sqrt(λ / n). So the uncertainty in λ_hat is sqrt(λ / n). Since λ = S / n, so sqrt( (S / n) / n ) = sqrt(S) / n.
+
+Wait, no, sqrt(λ / n) = sqrt( (S / n) / n ) = sqrt(S) / n.
+
+Wait, hold on:
+
+λ_hat = S / n = 20 / 10 = 2.
+
+Standard error of λ_hat is sqrt(λ / n) = sqrt(2 / 10) ≈ sqrt(0.2) ≈ 0.447.
+
+So the standard error is approximately 0.447 decays per second. So the uncertainty is about 0.447, which is around 22.35% uncertainty.
+
+So to get to 1% uncertainty, we need to reduce the standard error to 0.01.
+
+So set sqrt(λ / n) = 0.01.
+
+Therefore, sqrt(λ / n) = 0.01 => λ / n = 0.0001 => λ = n * 0.0001
+
+But we know that λ is the true decay constant, so if the student measures for T seconds, they will have S = λ * T counts. So to get S = λ * T, we have λ = S / T. But S is the total counts over T seconds.
+
+Wait, this is getting too recursive.
+
+Alternatively, perhaps I need to think about the relation between the number of counts and the uncertainty in the rate.
+
+The rate λ is equal to the average count rate, which is λ_hat = S / n.
+
+The variance of S is nλ, so the standard deviation of S is sqrt(nλ). Therefore, the standard deviation of λ_hat is sqrt(nλ) / n = sqrt(λ / n).
+
+Thus, the relative standard deviation of λ_hat is sqrt(λ / n) / λ_hat = sqrt(λ / n) / (S / n) = sqrt(λ) / sqrt(S).
+
+We want this relative standard deviation to be 1%:
+
+sqrt(λ) / sqrt(S) = 0.01
+
+But λ = S / n_total, where n_total is the total number of seconds the student counts. So:
+
+sqrt(S / n_total) / sqrt(S) = 0.01
+
+Simplify:
+
+sqrt(1 / n_total) = 0.01
+
+Therefore, n_total = 1 / (0.01)^2 = 1 / 0.0001 = 10,000.
+
+So n_total needs to be 10,000 seconds.
+
+But wait, the options are 80, 160, 2000, 5000. 10,000 isn't an option. Hmm.
+
+Wait, perhaps I made a mistake in the substitution.
+
+Wait, let's go back.
+
+We have:
+
+sqrt(λ) / sqrt(S) = 0.01
+
+But λ = average rate * total time = λ_hat * n_total.
+
+Wait, not quite. Wait, S is the total counts, which is λ * n_total.
+
+But λ is the true decay constant, so S = λ * n_total.
+
+But we have λ_hat = S / n_total.
+
+So sqrt(λ) / sqrt(S) = sqrt(λ) / sqrt(λ * n_total) ) = 1 / sqrt(n_total).
+
+Ah! So sqrt(λ) / sqrt(S) = 1 / sqrt(n_total).
+
+So if we set 1 / sqrt(n_total) = 0.01, then sqrt(n_total) = 100, so n_total = 10,000.
+
+So again, n_total needs to be 10,000 seconds.
+
+But 10,000 is not one of the options. So perhaps this approach is incorrect.
+
+Wait, maybe the student is using the counts to estimate the rate, and the uncertainty in the rate comes from the uncertainty in the individual counts.
+
+Each count follows a Poisson distribution with mean λ. So the variance of each count is λ.
+
+The total count S is the sum of n counts, each with mean λ and variance λ, so Var(S) = nλ.
+
+Therefore, the standard error of the rate λ_hat = S / n is sqrt(Var(S)/n²) = sqrt(nλ)/n = sqrt(λ / n).
+
+We need this standard error to be 1% of λ_hat. So:
+
+sqrt(λ / n) = 0.01 * λ_hat
+
+But λ_hat = S / n.
+
+So sqrt(λ / n) = 0.01 * (S / n)
+
+Multiply both sides by n:
+
+sqrt(λ) = 0.01 * S
+
+So:
+
+sqrt(λ) = 0.01 S
+
+But λ is the true decay constant, which is S / n_total.
+
+So:
+
+sqrt(S / n_total) = 0.01 S
+
+Divide both sides by sqrt(S):
+
+sqrt(1 / n_total) = 0.01
+
+Then:
+
+sqrt(n_total) = 100
+
+Therefore:
+
+n_total = 10,000.
+
+Again, same result. So 10,000 seconds needed.
+
+But the options don't include 10,000. Hmm.
+
+Wait, maybe I'm overcomplicating this. Perhaps it's a different approach.
+
+The question is: how long should the student count to establish the rate to an uncertainty of 1%. So they have 10 measurements of 1 second each. Maybe the student needs to extend the counting time, but perhaps they can combine the measurements in a different way.
+
+Wait, if we have 10 measurements, each one second, with counts: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+Total counts S = 20, so average rate λ_hat = 2 per second.
+
+But to get an uncertainty of 1%, we need to know how many more measurements (i.e., seconds) are needed.
+
+Assuming that the process is Poisson, the variance is proportional to the mean. So the standard error is sqrt(λ / n). So if we want the standard error to be 1% of λ_hat.
+
+So:
+
+Standard error = 0.01 * λ_hat
+
+But λ_hat = 2, so standard error = 0.02.
+
+But standard error is sqrt(λ / n). So:
+
+sqrt(λ / n) = 0.02
+
+But λ = λ_hat * n_total, where n_total is the total number of seconds.
+
+Wait, now we have
+[overthinking]
+Okay, so I've got this question here about radioactive decay and counting. Let me try to figure it out step by step. The question is asking how long a student should count to establish the rate of disintegration of a radioactive isotope to an uncertainty of 1 percent. The student has made 10 measurements, each one second apart, resulting in the counts: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The options given are A. 80 s, B. 160 s, C. 2,000 s, D. 5,000 s, and the correct answer is said to be B. 160 s.
+
+Hmm, okay. So first, I think I need to understand what the question is really about. It's talking about establishing the rate to an uncertainty of 1 percent. That sounds like it's related to statistics and maybe the law of large numbers. Maybe they want to know how many measurements are needed to estimate a rate with a certain confidence or uncertainty.
+
+The student has already taken 10 measurements, each one second apart. So that's a data set of counts at each second. They want to figure out how long to continue counting to get the rate to within 1% uncertainty. Hmm.
+
+Wait, radioactive decay is a Poisson process, isn't it? So maybe this is related to the Poisson process and its properties, like the rate estimation and the number of counts observed over time.
+
+In a Poisson process, the number of events (counts) in a given interval of time follows a Poisson distribution. The mean of this distribution is equal to the rate (λ) multiplied by the interval length. Since each measurement is one second, the interval is one second. So each count is Poisson distributed with mean λ.
+
+But the student is taking multiple measurements, each one second apart, so the counts over time can be modeled as a Poisson process with rate λ.
+
+Now, the goal is to estimate λ with an uncertainty of 1%. So, the student wants to know how many measurements (or how long, in total) they need to take to estimate λ to within 1% of the true value.
+
+Hmm, okay, so perhaps this is about the confidence interval for the rate estimation.
+
+Let me recall, in a Poisson process, the sum of counts over time intervals is a Poisson process with mean equal to the rate multiplied by the total time. So, if we have N counts over T seconds, then the estimator for λ is N / T.
+
+But the problem is that the student is making measurements one second apart, but the counts at each second might not be independent because radioactive decay is a Poisson process. So, maybe the counts are dependent across time.
+
+Wait, actually, each count is Poisson distributed, but the counts are dependent because the process is memoryless. So, if you have a count at time t, it doesn't affect the count at time t+1, except that both are part of the same Poisson process.
+
+So, in order to estimate the rate λ, you can sum all the counts and then divide by the total number of seconds. So, if the student takes n measurements, each one second apart, then the total counts is the sum of those n measurements, and the total time is n seconds. So, the estimator λ hat is (sum of counts) / n.
+
+But the question is about how long to count, so it's asking for the number of seconds, which would be n. So, how large does n need to be so that λ hat is within 1% of the true λ.
+
+But the student has already taken 10 measurements. So, maybe they want to know how many more seconds beyond that, or the total time?
+
+Wait, the question says "how long should the student count." So, does that mean they need to take more measurements beyond the 10 they've already done? Or is it saying to take until the total time is T, which would be more than 10 seconds.
+
+Wait, the measurements are already taken, so maybe the question is about the total time of those 10 measurements. But the counts obtained are 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. So, the counts are over 10 seconds.
+
+But the options given are 80 s, 160 s, etc. So maybe the student is supposed to continue counting beyond those 10 seconds until the total time is, say, 160 s. Because 160 s is one of the options.
+
+Alternatively, maybe it's about the number of measurements needed, but the options are in seconds, so probably the total time.
+
+Wait, let me think. If the process is Poisson, the variance is λ. So, if the true rate is λ, then the estimator is the average count per second, which is sum(counts) / n, where n is the number of seconds.
+
+But the problem is that we have 10 measurements. So, the total counts is 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5.
+
+Let me compute that: 3 + 0 is 3, plus 2 is 5, plus 1 is 6, plus 2 is 8, plus 4 is 12, plus 0 is 12, plus 1 is 13, plus 2 is 15, plus 5 is 20. So total counts is 20 over 10 seconds, so the average count per second is 2.
+
+Therefore, the estimated rate λ hat is 2 per second.
+
+But the problem is, how long should the student count to get the rate with an uncertainty of 1%. So, we need to determine the required sample size n (total time in seconds) such that the estimated λ hat is within 1% of the true λ.
+
+But wait, do we know the true λ? Or is it an unknown?
+
+Hmm, this is a bit confusing. If the true λ is known, then we could compute the required sample size. But in practice, we might need to consider that both λ and the variance are unknown.
+
+Wait, but if we use the counts to estimate λ, and then compute the confidence interval, perhaps with the normal approximation for the Poisson distribution, but for large λ, the Poisson distribution can be approximated by a normal distribution.
+
+Wait, but in our case, the average count is 2 per second, over 10 seconds. So, λ hat is 2.
+
+If we model the number of counts as Poisson(λ), then the variance is λ. So, for λ=2, the variance is 2. But if we use the normal approximation, the standard error of the estimator λ hat would be sqrt( (λ) / n ), where n is the total number of seconds? Wait, hold on.
+
+Wait, the estimator is λ_hat = total counts / n. The variance of λ_hat is Var(λ_hat) = Var(total counts / n). Since total counts is Poisson distributed with mean nλ, then Var(total counts) = nλ.
+
+Therefore, Var(λ_hat) = Var( (total counts) / n ) = (nλ) / n^2 ) = λ / n.
+
+So, the variance of λ_hat is λ / n. So, the standard deviation is sqrt(λ / n).
+
+So, if the student wants an uncertainty of 1%, that is a margin of error of 1% of λ.
+
+Wait, but we don't know λ. But perhaps we can use the estimated λ_hat (which is 2) to approximate the standard error.
+
+So, if we use λ_hat to estimate the standard error, then the margin of error would be z * sqrt(λ_hat / n ), where z is the z-score corresponding to the 1% uncertainty.
+
+Wait, 1% uncertainty is a margin of error of 1% of λ. But since we don't know λ, we could use λ_hat to approximate.
+
+Wait, but actually, an uncertainty of 1% on λ would be 0.01λ.
+
+So, to get the margin of error, we can write:
+
+Margin of error = z * sqrt( Var(λ_hat) )
+
+Var(λ_hat) = λ / n.
+
+But since λ is unknown, if we use λ_hat, then Var(λ_hat) ≈ λ / n ≈ 2 / n.
+
+Therefore, the standard error is sqrt(2 / n), so the margin of error is z * sqrt(2 / n).
+
+We want the margin of error to be 0.01λ. But since λ is unknown, perhaps we can assume that the true λ is approximately equal to λ_hat, so 0.01λ ≈ 0.01*2=0.02.
+
+Wait, that seems confusing. Alternatively, maybe we can consider that the relative uncertainty is 1%, so the margin of error is 1% of λ.
+
+But since λ is unknown, perhaps we can take λ_hat as the estimate for λ, so that the relative uncertainty is 1% of λ_hat.
+
+Wait, perhaps another approach is needed.
+
+Wait, the question is about establishing the rate to an uncertainty of 1 percent. So, the confidence interval for the rate λ needs to have a margin of error of 1% of λ.
+
+So, if we have a Poisson process, the number of counts in n seconds is Poisson(nλ). Then, the estimator for λ is λ_hat = (number of counts) / n.
+
+The variance of λ_hat is Var(λ_hat) = λ / n.
+
+So, the standard error of λ_hat is sqrt(λ / n).
+
+If we use the normal approximation, the confidence interval is:
+
+λ_hat ± z * sqrt(λ / n)
+
+We want the margin of error to be ±1% of λ.
+
+So, 1% of λ is 0.01λ.
+
+So, we want z * sqrt(λ / n ) = 0.01λ
+
+Divide both sides by λ: (z / sqrt(λ)) * sqrt(1 / n ) = 0.01
+
+But that seems complicated because λ is on both sides.
+
+Wait, perhaps if we consider that λ_hat is an estimate of λ, so we can write:
+
+z * sqrt(λ_hat / n ) = 0.01λ_hat
+
+Then, sqrt(λ_hat / n ) = 0.01λ_hat
+
+Wait, but that seems odd. Let me square both sides:
+
+λ_hat / n = (0.01λ_hat)^2
+
+Then,
+
+λ_hat / n = 0.0001 λ_hat^2
+
+Cancel λ_hat (assuming λ_hat ≠ 0):
+
+1 / n = 0.0001 λ_hat
+
+So, n = 1 / (0.0001 λ_hat ) = 10,000 / λ_hat
+
+But λ_hat is 2, so n = 10,000 / 2 = 5,000.
+
+Hmm, so that suggests n needs to be 5,000 seconds.
+
+But wait, that seems high, and 5,000 s is one of the options, option D. But the correct answer is said to be 160 s, which is option B.
+
+So, something is wrong here.
+
+Alternatively, maybe my approach is incorrect.
+
+Wait, perhaps instead of using the normal approximation, since we have a Poisson process, we can think in terms of the Central Limit Theorem when the number of counts is large. But in our case, the number of counts is only 20 over 10 seconds, so with an average of 2 per second.
+
+Wait, but perhaps we need to use the inverse of the Poisson binomial distribution or something else.
+
+Alternatively, perhaps the problem is about the number of trials needed to achieve a certain accuracy in the rate. So, if the student is counting events in intervals of one second, then the rate is events per second. So, to get the rate with 1% uncertainty, we can use the formula:
+
+Number of samples needed ≈ (z^2 * σ^2) / E[X]^2
+
+Where z is the z-score for the desired confidence level, σ^2 is the variance, and E[X] is the expected value.
+
+Wait, but in this case, we have a Poisson process, so the variance = mean = λ. So, E[X] = λ.
+
+But we don't know λ. So, perhaps we can use the average of our current measurements to estimate λ.
+
+Wait, our current average is 2. So, E[X] is 2, and Var(X) is 2.
+
+So, plugging into the formula:
+
+Number of samples needed ≈ (z^2 * 2) / (2)^2 = (z^2 * 2) / 4 = (z^2)/2.
+
+We want an uncertainty of 1%, so z corresponds to 1% confidence, which is a z-score of about 2.96 (since 95% confidence is z=1.96, so 99% is z=2.576, but for 1% uncertainty, maybe it's a two-tailed test with 1% confidence, so z=2.96).
+
+So, z^2 ≈ (2.96)^2 ≈ 8.76.
+
+Then, number of samples ≈ 8.76 / 2 ≈ 4.38.
+
+But that gives about 4.38 additional samples, but since the student already has 10, perhaps the total is 14.38. But that doesn't match the options given.
+
+Alternatively, maybe the formula is different for Poisson processes.
+
+Wait, the formula I used is for the binomial proportion confidence interval, which is n*(p*(1-p))/np, but in Poisson, it's different.
+
+Alternatively, maybe the formula for the required number of trials to estimate the rate with a given confidence.
+
+Wait, another approach is to use the formula for the variance of the rate estimator.
+
+Since the rate estimator is λ_hat = Y / n, where Y is the total counts in n seconds.
+
+Then, the variance of λ_hat is Var(Y / n) = Var(Y) / n^2 = (nλ) / n^2 = λ / n.
+
+So, Var(λ_hat) = λ / n.
+
+If we assume that the true λ is equal to λ_hat, then Var(λ_hat) ≈ 2 / n.
+
+Then, to have a margin of error of 1% of λ, which is 0.01λ, we can set the standard error equal to 0.01λ.
+
+But since Var(λ_hat) = λ / n ≈ 2 / n, then 0.01λ ≈ sqrt(2 / n).
+
+But again, this leads to λ ≈ 100 sqrt(2 / n).
+
+But since λ_hat is 2, maybe plugging that in:
+
+0.01*2 = sqrt(2 / n)
+
+0.02 = sqrt(2 / n)
+
+Square both sides:
+
+0.0004 = 2 / n
+
+n = 2 / 0.0004 = 5000.
+
+So, again, n is 5000.
+
+But this conflicts with the correct answer being 160 s.
+
+Hmm, so perhaps my entire approach is wrong.
+
+Wait, maybe the question is not about estimating λ with such precision, but about the number of trials needed to get a count with a certain precision in the count, and then translating that into a rate.
+
+Alternatively, perhaps we need to consider that the counts are in a Poisson process, and so the sum of counts over time is also Poisson, but the count per second is better approximated as normal for large lambda.
+
+Wait, but in this case, the average count per second is 2, so it's not that large.
+
+Alternatively, perhaps the problem is equivalent to determining the sample size needed so that the difference between the observed count and the true count is within 1% of the true count.
+
+So, in other words, |Observed - True| <= 0.01 * True.
+
+Since the process is Poisson, the difference between the estimator and the true λ can be bounded.
+
+Wait, maybe using the central limit theorem for counting processes.
+
+Wait, if n is large, the number of counts is approximately normal with mean nλ and variance nλ.
+
+But in our case, n=10 is not that large, but perhaps we can use the normal approximation with the mean and variance as estimated from the data.
+
+Wait, the student has 10 measurements: 20 counts over 10 seconds. So, the estimated λ is 2.
+
+So, the number of counts in n seconds would be approximately normal with mean 2n and variance 2n.
+
+We want the probability that the estimated λ_hat is within 1% of the true λ.
+
+So, let's denote the estimated λ_hat = (counts in n seconds) / n.
+
+If the true λ is λ_true, then counts in n seconds is Poisson(n λ_true), so approximately normal with mean 2n and variance 2n.
+
+So, we have:
+
+λ_hat = (counts) / n ≈ N(2, 2/n)
+
+We want |λ_hat - λ_true| <= 0.01 λ_true.
+
+But since λ_true is unknown, perhaps we can consider that the expected λ_hat is 2, so we can write:
+
+|λ_hat - λ_true| <= 0.01 λ_true
+
+But since λ_hat is an estimator, we might need to link λ_hat and λ_true.
+
+Alternatively, perhaps the problem is to find n such that the difference between λ_hat and λ_true is within 1% when n is sufficiently large.
+
+But I'm not sure.
+
+Alternatively, perhaps the problem is to find the total number of counts needed to estimate the rate with a 1% uncertainty.
+
+Wait, maybe it's better to think in terms of the confidence interval for λ.
+
+The confidence interval for λ is:
+
+[ (counts - z^2 * p ) / n , (counts + z^2 * p ) / n ]
+
+Wait, no, that formula is for binomial proportions. In Poisson processes, confidence intervals are a bit different.
+
+Wait, from what I remember, in a Poisson process, the confidence interval for the rate can be constructed using the normal approximation.
+
+So, if we have n measurements, the total counts is Y ~ Poisson(nλ), so Y is approximately normal(N(nλ, nλ)), so the mean is nλ, variance is nλ.
+
+Therefore, the estimator λ_hat = Y / n ~ N(λ, λ / n).
+
+So, the confidence interval is λ_hat ± z * sqrt(λ / n).
+
+We want the confidence interval to have a margin of error of 1% of λ, so:
+
+z * sqrt(λ / n ) = 0.01λ
+
+Again
+[overthinking]
+Okay, so I have this question about radioactive disintegration and determining how long to count to establish the rate to an uncertainty of 1 percent. Hmm, let's see. I remember something about radioactive decay and poisson processes, but maybe it's more about statistics here. Let me think.
+
+The student made 10 one-second measurements: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. So, these are counts of decays per second? Or wait, since it's one-second measurements, each measurement is the number of decays in that second, right? So, they're counting decay events happening in each second interval.
+
+The question is about establishing the rate to an uncertainty of 1 percent. So, they want to know how long to count so that the rate can be determined with 1% uncertainty. Hmm. I think this is related to confidence intervals in statistics. Maybe using the chi-squared test for goodness-of-fit or something like that?
+
+Let me recall. When dealing with Poisson distributions, which model discrete counts of events happening at a known average rate, the chi-squared test can be used to test if the observed counts match the expected counts under the Poisson model. Also, confidence intervals can be constructed using this method.
+
+So, the idea might be to first estimate the expected number of decays per second. Let's compute the average of the 10 measurements. Let's add them up: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5. Let me do that step by step:
+
+3 + 0 = 3
+
+3 + 2 = 5
+
+5 + 1 = 6
+
+6 + 2 = 8
+
+8 + 4 = 12
+
+12 + 0 = 12
+
+12 + 1 = 13
+
+13 + 2 = 15
+
+15 + 5 = 20.
+
+So, the total count is 20 over 10 seconds, so average per second is 2. So, the expected number of decays per second, λ, is 2.
+
+Now, if the process is Poisson with λ=2, then the variance and mean are both equal to λ, so variance is 2.
+
+But wait, in this case, each measurement is one second, so each is a count of a Poisson variable with λ=2. So, the count itself is a Poisson variable. Therefore, to find the rate, which is λ, we can model each count as Poisson(λ).
+
+Now, to estimate λ, we can take the sample mean. So, sample mean is 20 / 10 = 2. But we need to find the number of seconds needed so that when we compute the rate, the uncertainty is 1%. Hmm.
+
+I think to get the confidence interval for λ, we can use the relationship between the chi-squared distribution and the Poisson confidence intervals.
+
+The formula for a confidence interval for λ is:
+
+P(a ≤ λ ≤ b) = α/2
+
+Where a and b are the lower and upper bounds, and α is the significance level.
+
+But since we have multiple independent observations, each being Poisson(λ), the sum of these observations is Poisson(nλ), where n is the number of measurements. Wait, actually, no. Each observation is Poisson(λ), so if you have n measurements, the sum would be Poisson(nλ). But we have n=10, and sum is 20. So, the sum is Poisson(10λ), which is 20. Therefore, 10λ = 20, so λ=2, which matches our earlier calculation.
+
+But to find how long to count, so to get n measurements, such that the uncertainty in λ is 1%. Wait, but the question is how long should the student count. So, if each measurement is one second, then n is the number of seconds. So, we need to find n such that when we have n counts, the uncertainty in λ (which is the rate) is 1%.
+
+But let me think again. The question says "How long should the student count to establish the rate to an uncertainty of 1%". So, maybe they're asking for the number of seconds needed to count such that the relative uncertainty in the rate is 1%.
+
+So, relative uncertainty is 1%, meaning that the confidence interval for λ would be λ ± 1%λ.
+
+So, we need to find n such that the interval estimate for λ has a width of 1%λ.
+
+To compute this, I think we can use the standard error for the Poisson process.
+
+The standard error of the sample mean is sqrt(λ/n). But wait, in this case, since each count is Poisson(λ), the total number of counts is Poisson(nλ). So, the sample mean is λ, since nλ / n = λ.
+
+Wait, but the standard error for λ is sqrt(λ / n), so the confidence interval for λ is λ ± z * sqrt(λ / n). So, to have a relative uncertainty of 1%, we have:
+
+z * sqrt(λ / n) / λ = 0.01
+
+Because relative uncertainty is (standard error / mean) * 100%.
+
+So, plug in the numbers:
+
+z * sqrt(2 / n) / 2 = 0.01
+
+We need to solve for n.
+
+But wait, do we know z? For a 1% uncertainty, what significance level corresponds to that? Hmm, usually, confidence intervals are constructed with 95% confidence, which uses z=1.96. But 1% uncertainty is perhaps a different significance level. Wait, actually, in this case, the confidence interval is about the rate, so maybe we need to use a different approach.
+
+Wait, no, the relative uncertainty is given as 1%, so probably we need a 99% confidence interval (since 1% is the tails). But I'm not sure.
+
+Wait, let me think again. If we want the uncertainty to be 1% relative, that is, the confidence interval is of the form λ ± 0.01λ. So, the half-width of the confidence interval is 0.005λ. So, we have:
+
+z * sqrt(λ / n) = 0.005λ
+
+Divide both sides by λ:
+
+z * sqrt(1 / n) = 0.005
+
+Square both sides:
+
+z² * (1 / n) = 0.000025
+
+Therefore,
+
+n = z² / 0.000025
+
+But wait, let me check:
+
+Wait, the standard error is sqrt(λ / n). So, for the confidence interval, we have:
+
+λ ± z * sqrt(λ / n)
+
+But we want the half-width to be 0.005λ, so:
+
+z * sqrt(λ / n) = 0.005λ
+
+Divide both sides by λ:
+
+z * sqrt(1/n) = 0.005
+
+Then,
+
+sqrt(1/n) = 0.005 / z
+
+Square both sides:
+
+1/n = (0.005 / z)²
+
+Therefore,
+
+n = 1 / (0.005 / z)² = z² / (0.005)²
+
+So, n = z² / 0.000025
+
+Okay, so if z is the critical value for the desired confidence level. Since the relative uncertainty is 1%, that corresponds to a confidence interval of (100 - 1)% = 99%. So, a 99% confidence interval.
+
+In the normal approximation, for a 99% confidence interval, the z-score is approximately 2.576. Wait, let me recall:
+
+For a 95% confidence interval, z is 1.96.
+
+For 99%, it's about 2.576.
+
+Wait, is that correct? Let me confirm: The z-score for 99% confidence is indeed approximately 2.576.
+
+So, z ≈ 2.576.
+
+Therefore, plugging into the formula:
+
+n = (2.576)^2 / 0.000025
+
+Compute 2.576 squared:
+
+2.576 * 2.576. Let's compute that:
+
+2 * 2 = 4
+
+0.576 * 2 = 1.152
+
+2 * 0.576 = 1.152
+
+0.576 * 0.576 ≈ 0.331
+
+Wait, maybe better to compute 2.576^2:
+
+First, 2.5^2 = 6.25
+
+0.076^2 = approx 0.005776
+
+And cross term 2*2.5*0.076 = 0.38
+
+So, total is approx 6.25 + 0.38 + 0.005776 ≈ 6.635776
+
+But more accurately, 2.576^2:
+
+2.576 * 2.576:
+
+Multiply 2 * 2.576 = 5.152
+
+Multiply 0.5 * 2.576 = 1.288
+
+Multiply 0.07 * 2.576 = 0.17912
+
+Multiply 0.006 * 2.576 = 0.015456
+
+Add them up:
+
+5.152 + 1.288 = 6.44
+
+6.44 + 0.17912 = 6.61912
+
+6.61912 + 0.015456 ≈ 6.634576
+
+So, approximately 6.6346.
+
+Therefore,
+
+n = 6.6346 / 0.000025
+
+Compute 6.6346 / 0.000025.
+
+Divide 6.6346 by 0.000025.
+
+Well, 6.6346 / 0.000025 = 6.6346 / 2.5e-5 = 6.6346 * 40,000 = ?
+
+Compute 6 * 40,000 = 240,000
+
+0.6346 * 40,000 = 25,384
+
+So, total is 240,000 + 25,384 = 265,384.
+
+Wait, that can't be right because 265,384 is over a quarter million, but the options are up to 5,000 s.
+
+Hmm, perhaps my approach is wrong.
+
+Wait, the formula might be different. Maybe instead of n measurements, we need to consider the total time. Wait, each measurement is one second, so n is the number of seconds.
+
+But the options are 80, 160, 2000, 5000.
+
+Wait, 265,384 is way beyond that. So, there must be a flaw in my reasoning.
+
+Let me consider another approach. Maybe using the chi-squared test for goodness of fit.
+
+In the chi-squared test for Poisson distributions, we compare observed counts with expected counts. The formula for the chi-squared statistic is Σ[(O - E)^2 / E], where O is observed, E is expected.
+
+For a Poisson distribution with λ = 2, the expected count per second is 2. So, over 10 seconds, the expected counts are all 2, right? So, for each second, E=2, and the observed counts are the given numbers.
+
+So, compute chi-squared = Σ[(O - E)^2 / E] for each second.
+
+Compute each term:
+
+First second: (3 - 2)^2 / 2 = (1)^2 /2 = 0.5
+
+Second: (0 - 2)^2 /2 = (4)/2=2
+
+Third: (2 - 2)^2 /2 = 0
+
+Fourth: (1 - 2)^2 /2 = 1 /2=0.5
+
+Fifth: (2 - 2)^2 /2=0
+
+Sixth: (4 - 2)^2 /2=4 /2=2
+
+Seventh: (0 - 2)^2 /2=4 /2=2
+
+Eighth: (1 - 2)^2 /2=1/2=0.5
+
+Ninth: (2 - 2)^2 /2=0
+
+Tenth: (5 - 2)^2 /2=9 /2=4.5
+
+Now, sum all these up:
+
+0.5 + 2 + 0 + 0.5 + 0 + 2 + 2 + 0.5 + 0 + 4.5
+
+Let me add step by step:
+
+Start with 0.5.
+
+0.5 + 2 = 2.5
+
+2.5 + 0 = 2.5
+
+2.5 + 0.5 = 3
+
+3 + 0 = 3
+
+3 + 2 = 5
+
+5 + 2 = 7
+
+7 + 0.5 = 7.5
+
+7.5 + 0 = 7.5
+
+7.5 + 4.5 = 12.
+
+So, the chi-squared statistic is 12.
+
+Now, the degrees of freedom for a goodness-of-fit test is n - 1, where n is the number of categories. In this case, each second is a category, so n=10, degrees of freedom=9.
+
+We need to find the critical value of chi-squared with 9 degrees of freedom that leaves 1% in the upper tail for a 99% confidence interval.
+
+Looking up chi-squared table, for 9 degrees of freedom and upper tail probability 0.01, the critical value is about 19.023.
+
+Wait, is that right? Let me recall: chi-squared table, df=9, α=0.01.
+
+From the chi-squared table, for 9 degrees of freedom:
+
+The critical value at 0.995 (which is 1 - 0.01 = 0.99) is 19.023.
+
+So, yes, that's correct.
+
+Our observed chi-squared statistic is 12. Since 12 < 19.023, the p-value is greater than 0.01, so we don't reject the null hypothesis that the data comes from a Poisson distribution with λ=2.
+
+But how does this relate to determining the rate with 1% uncertainty?
+
+Hmm, perhaps this is about the confidence interval for λ. Using the chi-squared distribution for confidence intervals in Poisson processes.
+
+The formula for the confidence interval for λ is:
+
+( [ΣO - nλ ± z * sqrt(ΣO + n - ΣE) ] / (n + 1) )
+
+Wait, no, maybe I should recall the formula correctly.
+
+Wait, I think for a Poisson process, the confidence interval for the rate λ can be constructed using the chi-squared distribution.
+
+The formula is:
+
+P( (X - nλ) / sqrt(n) ≤ -z ) = 0.5
+
+and
+
+P( (X - nλ) / sqrt(n) ≥ z ) = 0.5
+
+But wait, I might be mixing things up.
+
+Alternatively, another formula is:
+
+The confidence interval for λ is:
+
+[ (ΣO + z² / 2) / n , (ΣO + z² / 2 - z²) / n ]
+
+Wait, not sure.
+
+Wait, perhaps another approach is to use the relationship between the chi-squared distribution and the Poisson confidence interval. The formula is:
+
+( (ΣO - nλ) / sqrt(n) )² ~ χ²(n)
+
+Where ΣO is the sum of observed counts, n is the number of measurements, and λ is the true rate.
+
+So, to find a confidence interval for λ, we can rearrange:
+
+( (ΣO - nλ) / sqrt(n) )² ≤ χ²_{α/2}(n)
+
+and
+
+( (ΣO - nλ) / sqrt(n) )² ≥ χ²_{1 - α/2}(n)
+
+So, solving for λ:
+
+(ΣO - nλ) / sqrt(n) ≤ -sqrt(χ²_{α/2}(n))
+
+and
+
+(ΣO - nλ) / sqrt(n) ≥ sqrt(χ²_{1 - α/2}(n))
+
+So, solving for λ:
+
+nλ ≤ ΣO - sqrt(n) * sqrt(χ²_{α/2}(n))
+
+and
+
+nλ ≥ ΣO - sqrt(n) * sqrt(χ²_{1 - α/2}(n))
+
+Therefore, the confidence interval for λ is:
+
+[ (ΣO - sqrt(n) * sqrt(χ²_{1 - α/2}(n)) ) / n , (ΣO - sqrt(n) * sqrt(χ²_{α/2}(n)) ) / n ]
+
+Wait, not exactly. Let me write it correctly.
+
+Wait, starting from:
+
+(ΣO - nλ) / sqrt(n) ≤ z_{α/2}
+
+and
+
+(ΣO - nλ) / sqrt(n) ≥ -z_{α/2}
+
+Wait, no, actually, since the chi-squared distribution is two-tailed, for a 99% confidence interval, we take the upper z_{0.005} and lower z_{0.995}.
+
+Wait, this is getting confusing. Let me refer to the formula.
+
+The confidence interval for λ is given by:
+
+P( λ_min ≤ λ ≤ λ_max ) = 1 - α
+
+Where:
+
+λ_min = (ΣO - sqrt(n) * C ) / n
+
+λ_max = (ΣO - sqrt(n) * D ) / n
+
+Where C and D are the lower and upper chi-squared values with n degrees of freedom, corresponding to the significance level α/2.
+
+So, for a 99% confidence interval, α=0.01, so α/2=0.005.
+
+So, we need the lower chi-squared value with 10 -1=9 degrees of freedom, corresponding to α/2=0.005, which is χ²_{0.005}(9), and the upper chi-squared value χ²_{0.995}(9).
+
+Looking up chi-squared table, for 9 degrees of freedom:
+
+χ²_{0.005}(9) ≈ 2.700
+
+Wait, no, hold on. Let me recall, the lower critical value for 0.005 significance level with 9 df is the χ²_{0.995}, which is the lower tail, so it's the inverse of the upper tail.
+
+Wait, no, the notation is a bit confusing. The upper tail probability is 0.005, so the critical value is the χ²_{0.005}(9). But that's the value that has 0.5% in the upper tail.
+
+Wait, to get the confidence interval, for a 99% CI, we
+[overthinking]
+Alright, so I have this question about radioactive disintegration. Let me try to understand what's being asked here.
+
+The question says that a student made 10 one-second measurements of the disintegration of a long-lived radioactive isotope. The measurements obtained are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. Now, the question is asking how long the student should count to establish the rate to an uncertainty of 1 percent. The options given are A. 80 seconds, B. 160 seconds, C. 2,000 seconds, D. 5,000 seconds. And it's mentioned that the correct answer is B. 160 seconds. Hmm, I need to figure out why 160 seconds is the correct answer.
+
+Okay, so first off, this sounds like a problem related to radioactive decay and error analysis. The student is measuring the number of disintegrations per second, and wants to estimate the rate with a certain uncertainty. The uncertainty is given as 1 percent, so we need to find how many measurements are needed to achieve that precision.
+
+I remember that when dealing with radioactive decay, the number of particles remaining follows an exponential decay law. But here, we're dealing with the count of disintegrations per unit time. So perhaps this is more about counting errors rather than the decay constant itself.
+
+Let me think. When we're trying to establish a rate with a certain uncertainty, we're essentially trying to minimize the relative error in our measurement. If the student is making measurements one second apart, each measurement is a count of disintegrations in that second. To find the rate, we're looking at the average count per second.
+
+But wait, if we only have 10 measurements, each at one-second intervals, we can compute the average count per second and then determine the uncertainty based on the counting statistics. Since the number of events is small, the Poisson distribution might come into play here.
+
+Poisson statistics are used for rare events, and the variance is equal to the mean. So, if we have n events, the variance is n, and the standard deviation is the square root of n. Therefore, the relative uncertainty in the mean would be the standard deviation divided by the mean.
+
+But before I get too deep into that, let me make sure I'm approaching this correctly. The measurements are: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+First, let me compute the average number of disintegrations per second. Adding up all the measurements: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5.
+
+Calculating that: 3+0=3, +2=5, +1=6, +2=8, +4=12, +0=12, +1=13, +2=15, +5=20. So the total is 20 counts over 10 seconds, which gives an average of 2 per second.
+
+Okay, so the mean is 2 counts per second. Now, we want to find how many seconds we need to measure to get the rate with an uncertainty of 1 percent. That means we need to find the number of seconds, n, such that when we compute the average rate over n seconds, the uncertainty in that rate is no more than 1%.
+
+To compute the uncertainty, we'll need to consider the variability of the counting process. Since the events are discrete and we're dealing with counts, the Poisson distribution is appropriate here.
+
+The formula for the variance of a Poisson distribution is equal to its mean. So, Var(X) = λ, where λ is the average rate. Since we have λ = 2, the variance is 2, and the standard deviation is sqrt(2) ≈ 1.414.
+
+But wait, in our case, we are integrating over multiple seconds, so we're dealing with the sum of independent Poisson variables. If we have n independent measurements, each with a mean of λ, then the total number of counts over n seconds is a Poisson random variable with mean nλ. The variance of the total counts would then be nλ.
+
+Since the total counts, say T, has variance nλ. The standard deviation of T is sqrt(nλ). The relative uncertainty in T is sqrt(nλ)/T.
+
+But we want the relative uncertainty in the rate, which is T/n. The relative uncertainty in T is sqrt(nλ)/T, so the relative uncertainty in the rate is sqrt(nλ)/(nλ) = sqrt(1/(nλ)).
+
+Wait, let me double-check that. The relative uncertainty in the rate is the standard deviation of the rate divided by the rate. The rate is T/n, so the standard deviation of the rate is sqrt(Var(T)/n²) = sqrt( (nλ)/n² ) = sqrt(λ/n).
+
+Therefore, the relative uncertainty in the rate is sqrt(λ/n)/ (T/n) ) = sqrt(λ/n) / ( (nλ)/n ) ) = sqrt(λ/n) / λ = sqrt(1/(λ n)).
+
+Wait, no, that doesn't seem right. Let me try another approach.
+
+Let me denote the total counts over n seconds as T. Then, T ~ Poisson(nλ). The mean λ is the rate per second, so the rate is λ = T/n.
+
+The variance of T is nλ, so the standard deviation is sqrt(nλ). The standard error of the mean (which is λ) is sqrt(nλ)/n = sqrt(λ/n).
+
+Therefore, the relative uncertainty in the rate λ is sqrt(λ/n)/λ = sqrt(1/(λ n)).
+
+Wait, that seems a bit too small. Let me think again.
+
+Alternatively, if we have n measurements, each with a Poisson distribution with mean λ, then the total counts T is Poisson(nλ). The standard deviation of T is sqrt(nλ). The standard error of the mean (λ) is sqrt(nλ)/n = sqrt(λ/n). Therefore, relative uncertainty is sqrt(λ/n)/λ = sqrt(1/(λ n)).
+
+Wait, that seems to still be the same.
+
+But we want the relative uncertainty in λ to be 1%, which is 0.01.
+
+So, setting sqrt(1/(λ n)) = 0.01.
+
+But here, λ is the average rate, which we have from the initial 10 measurements as 2 per second. So, plugging in λ = 2, we have sqrt(1/(2n)) = 0.01.
+
+Solving for n:
+
+sqrt(1/(2n)) = 0.01
+
+Square both sides:
+
+1/(2n) = 0.0001
+
+Multiply both sides by 2n:
+
+1 = 0.0002n
+
+Therefore, n = 1 / 0.0002 = 5000 seconds.
+
+Wait, that gives n = 5000 seconds. But the correct answer is 160 seconds, according to the user. Hmm, so clearly, my approach is incorrect.
+
+Wait, perhaps I confused the relative uncertainty. Maybe I need to consider the relative uncertainty in the total counts, and then convert that into relative uncertainty in the rate.
+
+So, the total counts T has a Poisson distribution with mean nλ and variance nλ. The relative uncertainty in T is sqrt(nλ)/T.
+
+Therefore, relative uncertainty in T is sqrt(nλ)/T. Since T = nλ + Poisson noise, but on average, T = nλ. So the relative uncertainty in T is sqrt(nλ)/(nλ) = sqrt(1/(nλ)).
+
+But we want the relative uncertainty in the rate, which is T/n. Since T = nλ, the rate is λ, so the relative uncertainty in λ is sqrt(1/(nλ)).
+
+So, setting sqrt(1/(nλ)) = 0.01, we have sqrt(1/(2n)) = 0.01, same as before, leading to n = 5000.
+
+But that's conflicting with the given answer. Hmm.
+
+Alternatively, maybe I should approach this using the formula for the confidence interval for the mean of a Poisson distribution.
+
+The confidence interval for the mean λ can be calculated using the inverse of the Poisson cumulative distribution function. However, this might be more complicated.
+
+Alternatively, perhaps the problem is being approached by considering the number of events needed to estimate the rate with a certain precision. The formula for the number of trials needed in a Poisson process to achieve a relative error of ε is approximately n = (1/ε²) * (1/λ).
+
+So, in our case, ε is 0.01 (1%), so n ≈ (1 / 0.0001) * (1 / 2) = 5000 / 2 = 2500. Hmm, that's still not matching 160 seconds.
+
+Wait, perhaps the student is counting each second, so each second is one trial. So, perhaps the number of trials is n seconds, each resulting in a count. So, with n seconds, the total counts are approximately Poisson(nλ). The relative uncertainty in λ is sqrt(1/(nλ)).
+
+We have λ = 2 per second, so sqrt(1/(n*2)) = 0.01.
+
+Then, 1/(2n) = 0.0001
+
+So, 2n = 10000
+
+n = 5000 seconds.
+
+But again, 5000 is one of the options, but the correct answer is 160. Hmm. So perhaps my approach is not correct.
+
+Wait, maybe I need to think in terms of the error propagation.
+
+The error in the rate is given by sqrt( (error in total counts)/(total counts)^2 ) because rate = total counts / time.
+
+So, if I have n seconds, total counts T. Then, the error in T is sqrt(T) because for Poisson, variance = T. So, the error in T is sqrt(T). Then, the error in the rate is sqrt(T)/(n*T) because rate = T/n.
+
+Wait, no, error in rate is (error in T)/(n^2)? Wait, that doesn't make sense.
+
+Wait, let's think about it as a proportion.
+
+If the total counts T has a standard deviation of sqrt(T), then the relative standard deviation is sqrt(T)/T = 1/sqrt(T). So, relative uncertainty in T is 1/sqrt(T). Then, since rate = T / n, the relative uncertainty in rate is approximately the relative uncertainty in T, which is 1/sqrt(T). So, setting 1/sqrt(T) = 0.01, so sqrt(T) = 100, so T = 10000.
+
+Therefore, T = n * λ = 10000. We have λ = 2, so n = 10000 / 2 = 5000.
+
+Again, same result. So why is the correct answer 160?
+
+Wait, perhaps the problem is not about Poisson statistics, but about the counting process with binomial or normal approximation.
+
+Alternatively, perhaps the question is considering the uncertainty in the decay constant rather than the rate. But in that case, the formula would be different.
+
+Wait, let me consider the decay constant. If we model the number of remaining atoms, N(t), as N(t) = N0 * e^{-λ t}, where λ is the decay constant.
+
+But the student is measuring the number of decays per second, which is the derivative of N(t), which is λ N(t). So, the rate is λ N(t), and the average rate is λ N0 / (1 - e^{-λ t}).
+
+But that might complicate things.
+
+Alternatively, perhaps the student is performing a radioactive decay measurement and is trying to determine the decay constant with 1% uncertainty. In that case, the required number of measurements would relate to the precision of λ.
+
+But I'm not sure if that's the case here.
+
+Wait, let me try an alternative approach.
+
+If we have n measurements, each one second apart, and the counts are Poisson distributed with mean μ = 2, then the sum of n counts has mean nμ and variance nμ.
+
+The standard error of the mean (which is μ) is sqrt(μ / n). So, relative error is sqrt(μ / n) / μ = sqrt(1 / (μ n)).
+
+Setting that to 1%, so sqrt(1 / (2n)) = 0.01.
+
+So, 1 / (2n) = 0.0001
+
+2n = 10000
+
+n = 5000.
+
+Still getting 5000, which is not the answer given.
+
+Alternatively, perhaps the problem is considering the number of disintegrations needed to measure the rate, but perhaps using a different model.
+
+Wait, another thought. Maybe the student is trying to estimate the decay constant with 1% uncertainty, not the rate. The decay constant λ is related to the rate by λ = rate, since rate = λ * N(t). So, if the rate has 1% uncertainty, so does λ.
+
+But I'm not sure.
+
+Wait, another idea: perhaps the problem is considering the absolute uncertainty in the number of atoms, and then translating that into the decay constant.
+
+Suppose the student wants to determine λ with 1% uncertainty. The number of atoms remaining is N0 = N0_0 * e^{-λ t}, but this might not directly help.
+
+Alternatively, maybe the problem is about the uncertainty in the counting rate, which for a Geiger counter or similar device, is Poisson noise.
+
+But in that case, the number of counts in n seconds is Poisson distributed with mean nλ. The relative uncertainty in the rate is 1/sqrt(nλ), as we saw before.
+
+So, again, 1/sqrt(nλ) = 0.01.
+
+With λ = 2, 1/sqrt(2n) = 0.01 => sqrt(2n) = 100 => 2n = 10000 => n=5000.
+
+Still not matching.
+
+Wait, maybe the problem is not about Poisson but about something else.
+
+Looking back at the measurements: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5.
+
+Total number of counts is 20 over 10 seconds, so average is 2 per second.
+
+But the counts have a lot of variance. For instance, one of the measurements is 0, and another is 5.
+
+Wait, perhaps the student is counting particles, and each measurement is the count in that second. So, if we have 10 measurements, each 1 second, then the counts are the number of particles decayed in that second.
+
+Now, to get the rate, we average these counts, so 2 per second. But the uncertainty in this average is due to the variability of the counts.
+
+So, the relative uncertainty in the average is sqrt(n)/(sum), where n is the number of counts?
+
+Wait, no. Maybe the relative uncertainty is standard deviation divided by the mean.
+
+But in this case, over the 10 seconds, the counts are 3,0,2,1,2,4,0,1,2,5.
+
+So, total counts is 20.
+
+The variance of the counts per second is the average of the squares minus the square of the average.
+
+So, compute the variance:
+
+First, compute the mean, which is 2.
+
+Then, compute the sum of squared deviations:
+
+(3-2)^2 + (0-2)^2 + (2-2)^2 + (1-2)^2 + (2-2)^2 + (4-2)^2 + (0-2)^2 + (1-2)^2 + (2-2)^2 + (5-2)^2.
+
+Calculating each term:
+
+1 + 4 + 0 + 1 + 0 + 4 + 4 + 1 + 0 + 9.
+
+Adding those up: 1+4=5, +0=5, +1=6, +0=6, +4=10, +4=14, +1=15, +0=15, +9=24.
+
+So, sum of squared deviations is 24.
+
+Variance is 24 / 10 = 2.4.
+
+Standard deviation is sqrt(2.4) ≈ 1.549.
+
+Therefore, relative uncertainty in the average is standard deviation / mean = 1.549 / 2 ≈ 0.7745, or 77.45%.
+
+But that seems high. Wait, that's the relative uncertainty in the average count per second.
+
+But the question is about establishing the rate to an uncertainty of 1%. So, perhaps we need to compute how many seconds are needed so that the relative uncertainty is 1%.
+
+So, perhaps we can model the number of counts in n seconds as a Poisson random variable with mean nλ, where λ = 2.
+
+Then, the relative uncertainty in the rate is sqrt(1/(nλ)).
+
+Wait, but earlier that gave us 5000.
+
+Alternatively, if we consider the standard error of the rate, which is sqrt(λ / n). So, for a 1% uncertainty, sqrt(2 / n) = 0.01.
+
+Solving for n: 2 / n = 0.0001 => n = 20000. No, that doesn't help.
+
+Wait, perhaps I need to use the formula for the confidence interval for the rate.
+
+The confidence interval for the rate λ is given by:
+
+P( (T/n - sqrt(T)/n) / (1/n) ) < λ < (T/n + sqrt(T)/n) / (1/n)
+
+But that might not be the correct approach.
+
+Wait, actually, for Poisson confidence intervals, the confidence interval can be calculated as:
+
+P(λ_n - z_{α/2} sqrt(λ_n / n) < λ < λ_n + z_{α/2} sqrt(λ_n / n))
+
+Where λ_n is the estimated rate (which is 2 in our case), and z_{α/2} is the z-score for the desired confidence level.
+
+But we want the uncertainty to be 1%, so α = 1%, so z_{0.005} ≈ 2.576.
+
+Therefore, the confidence interval is 2 ± 2.576 * sqrt(2 / n).
+
+We want the width of the confidence interval to be 1% of λ_n, which is 0.01 * 2 = 0.02.
+
+So, setting 2 * 2.576 * sqrt(2 / n) = 0.02.
+
+Wait

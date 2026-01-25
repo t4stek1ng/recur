@@ -1,0 +1,45 @@
+<｜begin▁of▁sentence｜><｜User｜>There is a multiple-choice question: A student makes 10 one-second measurements of the disintegration of a sample of a long-lived radioactive isotope and obtains the following values: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. How long should the student count to establish the rate to an uncertainty of 1 percent?. The options are: A. 80 s, B. 160 s, C. 2,000 s, D. 5,000 s. Why the correct answer is B. 160 s?<｜Assistant｜><think>
+Okay, so I've got this problem here about radioactive isotope disintegration counts. A student made 10 one-second measurements and got these values: 3, 0, 2, 1, 2, 4, 0, 1, 2, 5. The question is asking how long the student should count to establish the rate with an uncertainty of 1 percent. The options are A. 80 s, B. 160 s, C. 2,000 s, D. 5,000 s. And the correct answer is supposed to be B. 160 s. Hmm, I need to figure out why that is.
+
+Alright, first, let me make sure I understand the problem. The student is measuring the number of disintegrations per second of a long-lived radioactive isotope. They took 10 measurements, each lasting one second, and got these counts. Now they want to know how long they need to count to get the rate (which I assume is the activity) with an uncertainty of 1 percent.
+
+I remember that when dealing with radioactive decay, the number of counts follows a Poisson distribution because each disintegration is an independent event with a constant probability. For small counts, the variance is approximately equal to the mean, but as counts get larger, the variance becomes more like the square root of the mean. Wait, actually, in Poisson distribution, the variance is equal to the mean. So for each individual measurement, the variance would be equal to the count itself. But when you average over multiple measurements, the variance decreases.
+
+So, the student has made 10 measurements, each of 1 second. So the total counts would be the sum of these 10 measurements, and the total time is 10 seconds. But they want to know how long they need to count to get an uncertainty of 1 percent. So they want a certain number of counts such that the relative uncertainty is 1%.
+
+Wait, so maybe I need to figure out the total counts they have now and then figure out how much more time they need to count to reduce the relative uncertainty to 1%.
+
+First, let's calculate the total counts from the 10 measurements. Adding up the numbers: 3 + 0 + 2 + 1 + 2 + 4 + 0 + 1 + 2 + 5. Let me compute that step by step.
+
+3 + 0 = 3
+3 + 2 = 5
+5 + 1 = 6
+6 + 2 = 8
+8 + 4 = 12
+12 + 0 = 12
+12 + 1 = 13
+13 + 2 = 15
+15 + 5 = 20.
+
+So the total counts in 10 seconds is 20. Therefore, the average count rate is 20 counts / 10 seconds = 2 counts per second.
+
+Now, the uncertainty in each measurement is related to the variance. Since each measurement is 1 second, and the counts per second are Poisson distributed, the variance for each measurement is equal to the mean. Wait, so each measurement has a mean of, say, lambda, and variance of lambda. But in this case, the mean per measurement is the total counts divided by the number of measurements. Wait, no. Each measurement is 1 second, so each count is effectively the number of events in 1 second, so the variance for each measurement is equal to the mean count for that measurement.
+
+But actually, for each measurement, the counts are Poisson distributed with mean lambda, where lambda is the activity (counts per second). So each measurement has a variance equal to lambda. However, when we average multiple measurements, the variance of the average is reduced by a factor of 1/n, where n is the number of measurements.
+
+So, in this case, the student has taken 10 measurements, each of 1 second. So n = 10. The average count rate is 2 counts per second, as we calculated. The variance of the average would be (lambda)/n, but since lambda is the average count rate, which is 2, the variance would be 2/10 = 0.2. Therefore, the standard deviation of the average is sqrt(0.2) ≈ 0.447 counts per second.
+
+So the relative uncertainty would be the standard deviation divided by the mean. So relative uncertainty = 0.447 / 2 ≈ 0.223, or 22.3%. That's much higher than 1%, so the student definitely needs to count longer to reduce the uncertainty.
+
+So actually, for each measurement, the counts are Poisson distributed with mean lambda, where lambda is the activity (counts per second). So each measurement has a variance equal to lambda. However, when we average multiple measurements, the variance of the average is reduced by a factor of 1/n, where n is the number of measurements.
+
+So, in this case, the student has taken 10 measurements, each of 1 second. So n = 10. The average count rate is 2 counts per second, as we calculated. The variance of the average would be (lambda)/n, but since lambda is the average count rate, which is 2, the variance would be 2/10 = 0.2. Therefore, the standard deviation of the average is sqrt(0.2) ≈ 0.447 counts per second.
+
+So the relative uncertainty would be the standard deviation divided by the mean. So relative uncertainty = 0.447 / 2 ≈ 0.223, or 22.3%. That's much higher than 1%, so the student definitely needs to count longer to reduce the uncertainty.
+
+Again actually, for each measurement, the counts are Poisson distributed with mean lambda, where lambda is the activity (counts per second). So each measurement has a variance equal to lambda. However, when we average multiple measurements, the variance of the average is reduced by a factor of 1/n, where n is the number of measurements.
+
+So, in this case, the student has taken 10 measurements, each of 1 second. So n = 10. The average count rate is 2 counts per second, as we calculated. The variance of the average would be (lambda)/n, but since lambda is the average count rate, which is 2, the variance would be 2/10 = 0.2. Therefore, the standard deviation of the average is sqrt(0.2) ≈ 0.447 counts per second.
+
+So the relative uncertainty would be the standard deviation divided by the mean. So relative uncertainty = 0.447 / 2 ≈ 0.223, or 22.3%. That's much higher than 1%, so the student definitely needs to count longer to reduce the uncertainty.
+
