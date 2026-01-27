@@ -1,29 +1,82 @@
+import json
+import os
+
+# target_model = "gemini-2.5-flash"
+# target_model = "grok-4-fast-reasoning"
+# target_model = "deepseek-reasoner"
+
+target_model = "o1-2024-12-17"
+source_models = ["DeepSeek-R1-Distill-Llama-8B", "DeepSeek-R1-Distill-Qwen-14B", "QwQ-32B"]
+
+# source_model = source_models[0]
+# id = 7
+
+temperature = 0
+reasoning_effort = "high" #low, medium, high
+max_length = 16384 *4
+
 # DeepSeek
 from openai import OpenAI
 
-def deepseek_attack(prompt: str) -> tuple[str, int]:
-    pass
+# client = OpenAI(api_key="", base_url="https://api.deepseek.com")
+
+def deepseek_attack(target_model:str, source_model:str, id: int, temperature: float, prompt: str):
+    thought = ""
+    output = ""
+    messages = [{"role": "user", "content": prompt}]
+    response = client.chat.completions.create(
+        model=target_model,
+        messages=messages,
+        max_tokens=max_length,
+        temperature=temperature
+    )
+
+    thought = response.choices[0].message.reasoning_content
+    output = response.choices[0].message.content
+    thought_tokens = response.usage.completion_tokens_details.reasoning_tokens
+    output_tokens = response.usage.completion_tokens - thought_tokens
+
+    return {'id': id, "source": source_model, "temperature": temperature, "thought tokens": thought_tokens, "output tokens": output_tokens, "thought": thought, "output": output}
 
 # OpenAI
 
-def gpt_attack(prompt: str) -> tuple[str, int]:
-    pass
+client = OpenAI(api_key="", base_url="https://turingai.plus/v1")
+
+def gpt_attack(target_model:str, source_model:str, id: int, reasoning_effort: str, temperature: float, prompt: str):
+    thought = ""
+    output = ""
+    response = client.responses.create(
+        model=target_model,
+        input=prompt,
+        reasoning={"effort": reasoning_effort},
+        temperature=temperature
+    )
+
+    output = response.output_text
+    thought_tokens = response.usage.output_tokens_details.reasoning_tokens
+    output_tokens = response.usage.output_tokens
+
+    return {'id': id, "source": source_model, "reasoning effort": reasoning_effort, "temperature": temperature, "thought tokens": thought_tokens, "output tokens": output_tokens, "thought": thought, "output": output}
 
 # Google Gemini 2.5 Flash
 
 from google import genai
 from google.genai import types
 
-client = genai.Client()
+# client = genai.Client(api_key="")
 
-def gemini_attack(prompt: str) -> tuple[str, int]:
+def gemini_attack(target_model:str, source_model:str, id: int, temperature: float, prompt: str):
+    thought = ""
+    output = ""
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model=target_model,
         contents=prompt,
         config=types.GenerateContentConfig(
             thinking_config=types.ThinkingConfig(
                 include_thoughts=True
-            )
+            ),
+            temperature=temperature,
+            # max_output_tokens = max_length
         )
     )
 
@@ -38,9 +91,56 @@ def gemini_attack(prompt: str) -> tuple[str, int]:
     thoughts_tokens = response.usage_metadata.thoughts_token_count
     output_tokens = response.usage_metadata.candidates_token_count
 
-    return {"thought tokens": thoughts_tokens, "output tokens": output_tokens, "thought": thought, "output": output}
+    return {"id": id, "source": source_model, "temperature": temperature, "thought tokens": thoughts_tokens, "output tokens": output_tokens, "thought": thought, "output": output}
 
 # xAI
+from xai_sdk import Client as xClient
+from xai_sdk.chat import user
 
-def grok_attack(prompt: str) -> tuple[str, int]:
+# client = xClient(api_key="")
+
+def grok_attack(target_model: str, source_model: str, id: int, temperature: float, prompt: str):
+    thought = ""
+    output = ""
+    chat = client.chat.create(
+        model=target_model,
+        temperature=temperature
+    )
+
+    chat.append(user(prompt))
+    try:
+        response = chat.sample()
+
+    except Exception as e:
+        raise e
+
+    output = response.content
+    output_tokens = response.usage.completion_tokens
+    thoughts_tokens = response.usage.reasoning_tokens
+
+    return {"id": id, "source": source_model, "temperature": temperature, "thought tokens": thoughts_tokens, "output tokens": output_tokens, "thought": thought, "output": output}
+
+if os.path.exists(f"/home/guge_wzw/project/recur/exp/{target_model}"):
     pass
+else:
+    os.mkdir(f"/home/guge_wzw/project/recur/exp/{target_model}")
+
+if os.path.exists(f"/home/guge_wzw/project/recur/exp/{target_model}/results.jsonl"):
+    pass
+else:
+    with open(f"/home/guge_wzw/project/recur/exp/{target_model}/results.jsonl", "w") as f:
+        pass
+
+if __name__ == "__main__":
+    for source_model in source_models:
+        with open(f"/home/guge_wzw/project/recur/exp/{source_model}/promtps.jsonl") as f:
+            prompts = [json.loads(line) for line in f.readlines() if json.loads(line)["generation"] == False]
+
+        for data in prompts:
+            prompt = data["prompt"]
+            id = data["id"]
+
+            result = gpt_attack(target_model, source_model, id, reasoning_effort, temperature, prompt)
+
+            with open(f"/home/guge_wzw/project/recur/exp/{target_model}/results.jsonl", "a") as f:
+                f.write(json.dumps(result)+"\n")
