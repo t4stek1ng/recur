@@ -2,6 +2,11 @@ import json
 import glob
 import os
 
+# configurations
+config = json.load(open('./config.json', 'r'))
+model_name = config['model']
+model_path = f"./models/{model_name}"
+
 def over_reflect_trim(text: str, option: str | None, answer: str) -> bool | tuple[str, str]:
     text = text.split("<think>\n")[1]
     steps = text.split("\n\n")
@@ -60,18 +65,18 @@ if __name__ == "__main__":
     from transformers import AutoTokenizer
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "/root/project/models/QwQ-32B",
+        model_path,
         use_fast=True,
         trust_remote_code=True
     )
 
-    if os.path.exists("/root/project/dos/exp/QwQ-32B/promtps.jsonl"):
+    if os.path.exists(f"./exp/{model_name}/promtps.jsonl"):
         pass
     else:
-        with open("/root/project/dos/exp/QwQ-32B/promtps.jsonl", "w") as f:
+        with open(f"./exp/{model_name}/promtps.jsonl", "w") as f:
             pass
 
-    with open("/root/project/dos/dataset/ours/gsm8k_sample.jsonl", "r") as f:
+    with open("./dataset/ours/gsm8k_sample.jsonl", "r") as f:
         gsm8k_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
 
     for i, data in enumerate(gsm8k_dataset):
@@ -84,7 +89,7 @@ if __name__ == "__main__":
             "incorrect": []
         }
 
-    paths = glob.glob("/root/project/dos/exp/QwQ-32B/*entropy*.json")
+    paths = glob.glob(f"./exp/{model_name}/*entropy*.json")
 
     for path in paths:
         with open(path,"r") as f:
@@ -103,5 +108,5 @@ if __name__ == "__main__":
         thinking_loop = thinking_loop_trim(thinking, token)
         prompt = over_reflect + "\n\n" + thinking_loop + "\n\n"
 
-        with open("/root/project/dos/exp/QwQ-32B/promtps.jsonl", "a") as f:
+        with open(f"./exp/{model_name}/promtps.jsonl", "a") as f:
             f.write(json.dumps({"id":id, "generation": False, "tokens": 3, "token": token, "prompt": prompt})+"\n")

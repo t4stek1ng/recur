@@ -4,16 +4,20 @@ import time
 from vllm import LLM, SamplingParams, RequestOutput
 
 
-# parameters
+# configurations
 config = json.load(open('./config.json', 'r'))
 os.environ['RANK'] = '0'
 os.environ['VLLM_USE_V1'] = '0'
 os.environ['CUDA_VISIBLE_DEVICES'] = config['gpu']
+
+
+# parameters
 temperature = config["temperature"]
 max_model_len = config["max_model_len"]
 max_reflect = config["max_reflect"]
 logprobs = config["logprobs"]
-model_name = config['models'][config['model_id']].split('/')[-1]
+model_name = config['model']
+model_path = f"./models/{model_name}"
 timeout = 100
 
 
@@ -21,7 +25,7 @@ timeout = 100
 
 import logging
 
-logger = logging.getLogger("dos_logger")
+logger = logging.getLogger("recur_logger")
 logger.setLevel(logging.INFO)
 
 fmt = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
@@ -31,7 +35,7 @@ sh = logging.StreamHandler()
 sh.setFormatter(fmt)
 
 # file
-fh = logging.FileHandler(f"/root/project/dos/log/{model_name}.log", encoding="utf-8")
+fh = logging.FileHandler(f"./log/{model_name}.log", encoding="utf-8")
 fh.setFormatter(fmt)
 
 logger.addHandler(sh)
@@ -98,18 +102,12 @@ def exists_log_entry(
     stage: Optional[str] = None,
     state: Optional[str] = None,
 ) -> bool:
-    """
-    只检查日志中是否存在满足条件的记录
-    找到即返回 True，否则 False
-    """
-
     with open(log_file, "r", encoding="utf-8") as f:
         for line in f:
             kv = dict(KV_PATTERN.findall(line))
             if not kv:
                 continue
 
-            # ===== 其它字段判断 =====
             if dataset is not None and kv.get("dataset") != dataset:
                 continue
             if id_ is not None and int(kv.get("id", -1)) != id_:
@@ -119,15 +117,14 @@ def exists_log_entry(
             if state is not None and kv.get("state") != state:
                 continue
 
-            # ✔ 全部条件满足
             return True
 
     return False
 
 
-# model (97.5% = 30 * 16k)
+# model
 llm = LLM(
-    model=config['models'][config['model_id']],
+    model=model_path,
     task="generate",
     max_model_len=config['max_model_len'],
     gpu_memory_utilization=config['gpu_memory_utilization'],
@@ -153,16 +150,7 @@ prompt_thinking_step_entropy_params = SamplingParams(
     prompt_logprobs=logprobs
 )
 
-# entropy descent sampling
-min_thinking_step_entropy_params = SamplingParams(
-    temperature=1,
-    max_tokens=max_model_len,
-    logprobs=logprobs,
-    stop="\n\n",
-    include_stop_str_in_output=True
-)
-
-# minimum prob/entropy sampling
+# recursive entropy guided sampling
 prob_entropy_min_params = SamplingParams(
     temperature=1,
     max_tokens=1,
@@ -177,7 +165,7 @@ loop_generation_params = SamplingParams(
 
 # functions
 
-# counterfactual question rewrite
+# counterfactual questions
 import random
 OPTIONS = {"A", "B", "C", "D"}
 MODE = {"wrong", "deny", "suspect"}
@@ -224,23 +212,12 @@ top_p = config["top-p"]
 top_k = config["top-k"]
 q = 1 - top_p  # tail quality
 M = tokenizer.vocab_size
-entropy_inaccuracy: float = -q * math.log(q) + q * math.log(M)  # tail entropy upper bound
-bound = top_p/entropy_inaccuracy
 
 
 def trunc_entropy_with_error_bounds(
     step_logprobs: dict[int, Logprob],
     top_p: float
 ) -> float:
-    """
-    根据 step_logprobs 计算：
-    - 不重新归一化的截断熵 H_trunc
-
-    return:
-        H_trunc
-    """
-
-    # ---------- 1. 从 logprobs 得到概率 ----------
     probs = []
     prob_sum = 0
     
@@ -252,7 +229,6 @@ def trunc_entropy_with_error_bounds(
         if prob_sum > top_p:
             break
 
-    # ---------- 2. 计算截断熵 ----------
     # H_trunc = - sum_{i in S} p_i log p_i
     H_trunc = 0.0
     for p in probs:
@@ -302,34 +278,21 @@ def over_reflect_check(text: str, option: str | None, answer: str) -> bool | int
 
 
 def loop_check(text: str, n: int) -> bool:
-    """
-    检查输出是否产生循环
-    
-    :param text: 输出文本
-    :param n: 循环次数
-    :type text: str
-    :type n: int
-    :return: 检查结果
-    :rtype: bool
-    """
-
     # multi-line check
     multi_line_loop = False
     steps = text.split("\n\n")[:-1]
     test_step = steps[-1]
     rev = steps[-2::-1]
     if test_step in rev:
-        # 往前找到第一个和 test step 相同的思考步骤
         idx_rev = rev.index(test_step)
-        # 换算成正序索引
-        same_idx = len(rev) - 1 - idx_rev # 重复步骤索引
-        test_idx = len(steps) - 1 # 最后一步索引
+        same_idx = len(rev) - 1 - idx_rev
+        test_idx = len(steps) - 1
         distance = test_idx - same_idx
-        if same_idx > distance: # 回溯重复模式时不会越界:
-            if distance > 1: # 检查整个模式是否相同
+        if same_idx > distance:
+            if distance > 1:
                 if all(steps[index] == steps[index - distance] for index in range(same_idx, test_idx)):
                     multi_line_loop = True
-            else: # 重复思考相邻，可能存在非循环情况，至少重复 n 次
+            else:
                 if all(steps[index] == steps[test_idx] for index in range(test_idx - n, test_idx)):
                     multi_line_loop = True
 
@@ -341,14 +304,14 @@ def loop_check(text: str, n: int) -> bool:
         rev = last_step[-2::-1]
         if test_str in rev:
             idx_rev = rev.index(test_str)
-            same_idx = len(rev) - 1 - idx_rev # 重复步骤索引
-            test_idx = len(last_step) - 1 # 最后一步索引
+            same_idx = len(rev) - 1 - idx_rev
+            test_idx = len(last_step) - 1
             distance = test_idx - same_idx
-            if same_idx > distance: # 回溯重复模式时不会越界:
-                if distance > 1: # 至少重复10次
+            if same_idx > distance:
+                if distance > 1:
                     if all(last_step[index] == last_step[index - distance] for index in range(same_idx, test_idx)) and all(last_step[index] == last_step[test_idx] for index in range(test_idx - 10*distance, test_idx, distance)):
                         one_line_loop = True
-                else: # 至少重复 10 * n 次
+                else:
                     if all(last_step[index] == last_step[test_idx] for index in range(test_idx - 10 * n, test_idx)):
                         one_line_loop = True
 
@@ -361,7 +324,7 @@ import json
 
 # gsm8k
 
-with open("/root/project/dos/dataset/ours/gsm8k_sample.jsonl", "r") as f:
+with open("./dataset/ours/gsm8k_sample.jsonl", "r") as f:
     gsm8k_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
 
 for i, data in enumerate(gsm8k_dataset):
@@ -374,120 +337,23 @@ for i, data in enumerate(gsm8k_dataset):
         "incorrect": []
     }
 
-# mmlu
-
-with open("/root/project/dos/dataset/ours/college_physics_sample.jsonl", "r") as f:
-    mmlu_physics_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
-
-for i, data in enumerate(mmlu_physics_dataset):
-    answer_option = data["answer"]
-    answer = data[answer_option]
-    mmlu_physics_dataset[i] = {
-        "id": i,
-        "question": data["question"],
-        "options": {
-            "A": data["A"],
-            "B": data["B"],
-            "C": data["C"],
-            "D": data["D"]
-        },
-        "option": answer_option,
-        "answer": answer,
-        "incorrect": [data[option] for option in OPTIONS if option != answer_option]
-    }
-
-with open("/root/project/dos/dataset/ours/college_computer_science_sample.jsonl", "r") as f:
-    mmlu_cs_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
-
-for i, data in enumerate(mmlu_cs_dataset):
-    answer_option = data["answer"]
-    answer = data[answer_option]
-    mmlu_cs_dataset[i] = {
-        "id": i,
-        "question": data["question"],
-        "options": {
-            "A": data["A"],
-            "B": data["B"],
-            "C": data["C"],
-            "D": data["D"]
-        },
-        "option": answer_option,
-        "answer": answer,
-        "incorrect": [data[option] for option in OPTIONS if option != answer_option]
-    }
-
-with open("/root/project/dos/dataset/ours/econometrics_sample.jsonl", "r") as f:
-    mmlu_econometrics_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
-
-for i, data in enumerate(mmlu_econometrics_dataset):
-    answer_option = data["answer"]
-    answer = data[answer_option]
-    mmlu_econometrics_dataset[i] = {
-        "id": i,
-        "question": data["question"],
-        "options": {
-            "A": data["A"],
-            "B": data["B"],
-            "C": data["C"],
-            "D": data["D"]
-        },
-        "option": answer_option,
-        "answer": answer,
-        "incorrect": [data[option] for option in OPTIONS if option != answer_option]
-    }
-
-with open("/root/project/dos/dataset/ours/logical_fallacies_sample.jsonl", "r") as f:
-    mmlu_logical_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
-
-for i, data in enumerate(mmlu_logical_dataset):
-    answer_option = data["answer"]
-    answer = data[answer_option]
-    mmlu_logical_dataset[i] = {
-        "id": i,
-        "question": data["question"],
-        "options": {
-            "A": data["A"],
-            "B": data["B"],
-            "C": data["C"],
-            "D": data["D"]
-        },
-        "option": answer_option,
-        "answer": answer,
-        "incorrect": [data[option] for option in OPTIONS if option != answer_option]
-    }
-
-# gpqa
-
-with open("/root/project/dos/dataset/ours/gpqa_sample.jsonl", "r") as f:
-    gpqa_dataset: list[dict[str, list[str]] | str | int] = [json.loads(line) for line in f.readlines()]
-
-for i, data in enumerate(gpqa_dataset):
-    gpqa_dataset[i] = {
-        "id": i,
-        "question": data["question"],
-        "options": None,
-        "option": None,
-        "answer": data["answer"].strip(),
-        "incorrect": [incorrect_answer.strip() for incorrect_answer in data["incorrect answers"]]
-    }
-
-datasets = {"gsm8k":gsm8k_dataset, "mmlu_physics":mmlu_physics_dataset, "mmlu_cs":mmlu_cs_dataset, "mmlu_econometrics":mmlu_econometrics_dataset, "mmlu_logical":mmlu_logical_dataset, "gpqa":gpqa_dataset}
+datasets = {"gsm8k":gsm8k_dataset}
 
 
 # main
 
 if __name__ == "__main__":
-    if os.path.exists(f"/root/project/dos/exp/{model_name}"):
-            pass
+    if os.path.exists(f"./exp/{model_name}"):
+        pass
     else:
-        os.mkdir(f"/root/project/dos/exp/{model_name}")
+        os.mkdir(f"./exp/{model_name}")
 
     sub_dataset = [obj for obj in datasets.items()][:1]
     for dataset_name, dataset in sub_dataset:
         for id, data in enumerate(dataset):
             LOOP = False
-            if os.path.exists(f"/root/project/dos/exp/{model_name}/{dataset_name}_{id}_reflect.json"):
-                with open(f"/root/project/dos/exp/{model_name}/{dataset_name}_{id}_reflect.json", "r") as f:
+            if os.path.exists(f"./exp/{model_name}/{dataset_name}_{id}_reflect.json"):
+                with open(f"./exp/{model_name}/{dataset_name}_{id}_reflect.json", "r") as f:
                     info = json.loads(f.read())
                     over_reflect_flag = info["over_reflect"]
                     over_reflect_prompt = info["prompt"]
@@ -530,42 +396,42 @@ if __name__ == "__main__":
                     over_reflect_output = "\n\n".join(over_reflect_steps) + "\n\n"
                     over_reflect_prompt = prompt + over_reflect_output
 
-                    with open(f"/root/project/dos/exp/{model_name}/{dataset_name}_{id}_reflect.json", "w") as f:
+                    with open(f"./exp/{model_name}/{dataset_name}_{id}_reflect.json", "w") as f:
                         f.write(json.dumps({
-                                "over_reflect": True,
-                                "input_length": input_length,
-                                "output_length": output_length,
-                                "prompt_length": prompt_length,
-                                "prompt": over_reflect_prompt
-                            }))
+                            "over_reflect": True,
+                            "input_length": input_length,
+                            "output_length": output_length,
+                            "prompt_length": prompt_length,
+                            "prompt": over_reflect_prompt
+                        }))
                 else:
                     logger.info(f"dataset={dataset_name} id={id} stage=over_reflect_generation result=failed")
 
-                    with open(f"/root/project/dos/exp/{model_name}/{dataset_name}_{id}_reflect.json", "w") as f:
+                    with open(f"./exp/{model_name}/{dataset_name}_{id}_reflect.json", "w") as f:
                         f.write(json.dumps({
-                                "over_reflect": False,
-                                "input_length": input_length,
-                                "output_length": output_length,
-                                "prompt_length": prompt_length,
-                                "prompt": prompt + text
-                            }))
+                            "over_reflect": False,
+                            "input_length": input_length,
+                            "output_length": output_length,
+                            "prompt_length": prompt_length,
+                            "prompt": prompt + text
+                        }))
 
             if over_reflect_flag:
                 count = 0
 
-                # 检索日志
-                if exists_log_entry(f"/root/project/dos/log/{model_name}.log", dataset=dataset_name, id_=id, stage="entropy_descent_sampling", state="down"):
+                # retrieve log
+                if exists_log_entry(f"./log/{model_name}.log", dataset=dataset_name, id_=id, stage="entropy_descent_sampling", state="down"):
                     continue
-                elif exists_log_entry(f"/root/project/dos/log/{model_name}.log", dataset=dataset_name, id_=id, stage="entropy_descent_sampling", state="running"):
-                    # 恢复日志
-                    additional_token_ids = extract_tokens_with_kv_filters(f"/root/project/dos/log/{model_name}.log", filters={"dataset":dataset_name, "id":id, "stage":"entropy_descent_sampling"})
+                elif exists_log_entry(f"./log/{model_name}.log", dataset=dataset_name, id_=id, stage="entropy_descent_sampling", state="running"):
+                    # restore from log
+                    additional_token_ids = extract_tokens_with_kv_filters(f"./log/{model_name}.log", filters={"dataset":dataset_name, "id":id, "stage":"entropy_descent_sampling"})
                     count = len(additional_token_ids)
                     additional_prompt = tokenizer.decode(additional_token_ids)
                     over_reflect_prompt += additional_prompt
 
                 prompt_length = len(tokenizer.encode(over_reflect_prompt))
 
-                # 比较 top-k 个 token 后续预测的熵值
+
                 outputs = llm.generate(
                     over_reflect_prompt,
                     prob_entropy_min_params,
@@ -640,7 +506,7 @@ if __name__ == "__main__":
                         stop_reason = "count_limit"
                         break
 
-                with open(f"/root/project/dos/exp/{model_name}/{dataset_name}_{id}_entropy_descent.json", "w") as f:
+                with open(f"./exp/{model_name}/{dataset_name}_{id}_entropy_descent.json", "w") as f:
                     f.write(json.dumps({
                         "loop": LOOP,
                         "stop_reason": stop_reason,
